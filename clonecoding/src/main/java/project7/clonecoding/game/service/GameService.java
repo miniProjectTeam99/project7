@@ -11,8 +11,6 @@ import project7.clonecoding.game.repository.GameRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project7.clonecoding.user.entity.User;
-import project7.clonecoding.user.repository.UserRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GameService {
     private final GameRepository gameRepository;
-    private final UserRepository userRepository;
+//    private final UserRepository userRepository;
 
     //게시글 작성하기
     @Transactional
@@ -54,9 +52,9 @@ public class GameService {
     public GameResponseDto getGame(Long id) {
         //id로 게시물 조회하기
         Game game = findGameById(id);
-        userRepository.findById(game.getUserId()).orElseThrow(
-                ()-> new IllegalArgumentException("존재하지 않는 게시글입니다.")
-        );
+//        userRepository.findById(game.getUserId()).orElseThrow(
+//                ()-> new IllegalArgumentException("존재하지 않는 게시글입니다.")
+//        );
         return new GameResponseDto(game);
     }
 

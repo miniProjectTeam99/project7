@@ -1,12 +1,12 @@
 package project7.clonecoding.security;
 
-import project7.clonecoding.user.entity.User;
-import project7.clonecoding.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import project7.clonecoding.user.UserRepository;
+import project7.clonecoding.user.entity.Users;
 
 @Service
 @RequiredArgsConstructor
@@ -15,11 +15,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        Users users = userRepository.findByUserName(userName);
+        if(users == null){
 
-        return new UserDetailsImpl(user, user.getUsername());
+        }
+
+        return new UserDetailsImpl(users, users.getUserName());
     }
 
 }

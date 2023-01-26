@@ -2,7 +2,7 @@ package project7.clonecoding.game.dto;
 
 import project7.clonecoding.game.entity.Game;
 import lombok.Getter;
-import project7.clonecoding.user.entity.User;
+import project7.clonecoding.user.entity.Users;
 
 import java.time.LocalDateTime;
 import java.util.List;

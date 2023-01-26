@@ -1,32 +1,38 @@
 package project7.clonecoding.security;
 
-import project7.clonecoding.user.entity.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import project7.clonecoding.user.entity.Users;
+import project7.clonecoding.user.entity.UserRoleEnum;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 public class UserDetailsImpl implements UserDetails {
 
-    private final User user;
+    private final Users users;
     private final String username;
 
-    public UserDetailsImpl(User user, String username) {
-        this.user = user;
+    public UserDetailsImpl(Users users, String username) {
+        this.users = users;
         this.username = username;
     }
 
-    public User getUser() {
-        return user;
+    public Users getUser() {
+        return users;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("ROLE_USER");
+
+        UserRoleEnum role = users.getRole();
+        String authority = role.getAuthority();
+
+        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(authority);
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(simpleGrantedAuthority);
+
         return authorities;
     }
 
@@ -59,4 +65,5 @@ public class UserDetailsImpl implements UserDetails {
     public boolean isEnabled() {
         return false;
     }
+
 }

@@ -1,6 +1,8 @@
 package project7.clonecoding.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import project7.clonecoding.user.dto.ResponseMsgDto;
 import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,15 +25,11 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private final JwtUtil jwtUtil;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
+
         String token = jwtUtil.resolveToken(request);
 
-        if(request.getRequestURI().equals("/api/user/signup") || request.getRequestURI().equals("/api/user/login")
-                || request.getRequestURI().equals("/files/image") || request.getRequestURI().equals("/files/profile")
-                || request.getRequestURI().equals("/posts/get") || request.getRequestURI().equals("/api/user/info")) {
-            filterChain.doFilter(request,response);
-            return;
-        }
         if(token != null) {
             if(!jwtUtil.validateToken(token)){
                 jwtExceptionHandler(response, "Token Error", HttpStatus.UNAUTHORIZED.value());
@@ -55,7 +53,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         response.setStatus(statusCode);
         response.setContentType("application/json");
         try {
-            String json = new ObjectMapper().writeValueAsString(new SecurityExceptionDto(statusCode, msg));
+
+            String json = new ObjectMapper().writeValueAsString(new ResponseMsgDto(msg,statusCode));
             response.getWriter().write(json);
         } catch (Exception e) {
             log.error(e.getMessage());
@@ -63,3 +62,4 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     }
 
 }
+
