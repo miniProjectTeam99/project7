@@ -33,6 +33,7 @@ public class Users {
         this.userName = signupRequestDto.getUserName();
         this.password = signupRequestDto.getPassword();
         this.email = signupRequestDto.getEmail();
+        this.role = UserRoleEnum.USER;
     }
 
     public void login(LoginRequestDto loginRequestDto){
