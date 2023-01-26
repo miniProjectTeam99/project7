@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import project7.clonecoding.game.dto.GameRequestDto;
 import project7.clonecoding.game.dto.StarRequestDto;
 import project7.clonecoding.timestamp.Timestamp;
-import project7.clonecoding.user.entity.User; //유저 값
+import project7.clonecoding.user.entity.Users;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

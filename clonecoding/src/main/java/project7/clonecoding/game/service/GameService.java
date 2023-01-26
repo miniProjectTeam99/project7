@@ -7,6 +7,7 @@ import project7.clonecoding.game.dto.ResponseDto;
 import project7.clonecoding.game.dto.StarRequestDto;
 import project7.clonecoding.game.entity.Game;
 import project7.clonecoding.game.repository.GameRepository;
+import project7.clonecoding.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class GameService {
     private final GameRepository gameRepository;
-//    private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     //게시글 작성하기
     @Transactional

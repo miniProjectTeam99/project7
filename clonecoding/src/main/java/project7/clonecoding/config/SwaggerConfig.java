@@ -20,7 +20,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .ignoredParameterTypes(AuthenticationPrincipal.class)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("project7.clonecoding.game.controller"))
+                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
                 .apiInfo(apiInfo());
