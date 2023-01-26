@@ -31,7 +31,7 @@ public class SwaggerConfig {
         return new ApiInfoBuilder()
                 .title("스웨그")
                 .description("Swaggggg.")
-                .version("1.0")
+                .version("2.0")
                 .build();
 
 

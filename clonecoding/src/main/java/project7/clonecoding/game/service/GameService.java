@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import project7.clonecoding.game.dto.GameRequestDto;
 import project7.clonecoding.game.dto.GameResponseDto;
 import project7.clonecoding.game.dto.ResponseDto;
+import project7.clonecoding.game.dto.StarRequestDto;
 import project7.clonecoding.game.entity.Game;
 import project7.clonecoding.game.repository.GameRepository;
 
@@ -25,10 +26,10 @@ public class GameService {
 
     //게시글 작성하기
     @Transactional
-    public ResponseDto createGame(GameRequestDto gameRequestDto, User user)  {
+    public ResponseDto createGame(GameRequestDto gameRequestDto)  {
         log.info("ㄱㄱ");
         // 게시글 객체 생성
-        Game game = new Game(gameRequestDto, user);
+        Game game = new Game(gameRequestDto);
         //게시글 객체 db에 저장
         gameRepository.save(game);
         //msg: 게시글 작성완료! 반환
@@ -68,23 +69,29 @@ public class GameService {
         game.update(request);
         return new ResponseDto("수정 완료.");
     }
-
-    //게시물 soft delete
+    //게시물 수정
     @Transactional
-    public ResponseDto DeleteGame(Long id) {
+    public ResponseDto rateStar(Long id, StarRequestDto request) {
         //id로 게시물 찾기
         Game game = findGameById(id);
-
+        //게시물 수정
+        game.update(request);
+        return new ResponseDto("평점 매기기 완료.");
+    }
+    //게시물 delete
+    @Transactional
+    public ResponseDto DeleteGame(Long id) {
+        gameRepository.findById(id).orElseThrow(
+                ()-> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
+        );
         //게시글 삭제
         gameRepository.deleteById(id);
-
         return new ResponseDto("삭제 완료.");
     }
     //게시물 단건 조회할 때 사용
     public Game findGameById(Long id){  //살아있는 게시글만 찾기
-        Game game = gameRepository.findById(id).orElseThrow(
+        return gameRepository.findById(id).orElseThrow(
                 ()-> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
         );
-        return game;
     }
 }

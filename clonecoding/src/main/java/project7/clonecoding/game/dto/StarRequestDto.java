@@ -5,8 +5,6 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-public class GameRequestDto {
-    private String gameTitle;
-    private String description;
-//    private String imgurl;
+public class StarRequestDto {
+    private Float star;
 }

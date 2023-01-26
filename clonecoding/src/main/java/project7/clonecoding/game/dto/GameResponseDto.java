@@ -14,16 +14,18 @@ public class GameResponseDto {
     private String gameTitle;
     private String description;
     private String category;
-    private LocalDateTime createdAt;
-    private LocalDateTime modifiedAt;
-    private String imageUrl;
+    private float star;
+    private String createdAt;
+    private String modifiedAt;
+//    private String imageUrl;
     private boolean state;
 
     public GameResponseDto(Game game){
         this.id = game.getId();
         this.gameTitle = game.getGameTitle();
         this.description = game.getDescription();
-        this.imageUrl = game.getImageUrl();
+//        this.imageUrl = game.getImageUrl();
+        this.star= game.getStar();
         this.createdAt = game.getCreatedAt();
         this.modifiedAt = game.getModifiedAt();
     }

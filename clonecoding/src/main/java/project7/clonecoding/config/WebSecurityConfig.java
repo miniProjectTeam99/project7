@@ -55,8 +55,7 @@ public class WebSecurityConfig {
 
 
         http.authorizeRequests().antMatchers("/user/**").permitAll()
-                .antMatchers("/game/**").permitAll()
-                .antMatchers(HttpMethod.GET,"/posts/get").permitAll()
+                .antMatchers("/games/**").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/v2/api-docs").permitAll()
