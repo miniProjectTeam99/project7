@@ -30,7 +30,11 @@ public class UserService {
 
         UserRoleEnum role = UserRoleEnum.USER;
 
-        // 비밀 번호 입력 값 확인 후 같을 경우 암호화
+        // 비밀번호 길이 체크 & 비밀번호와 비밀번호 체크 입력값 확인 후 같을 경우 암호화
+        if(password.length()<8){
+            return new ResponseMsgDto("8글자 이상으로 만들어주세요.", HttpStatus.BAD_REQUEST.value());
+        }
+
         if(!matches(password,passwordCheck)){
             return new ResponseMsgDto("비밀번호가 서로 다릅니다.", HttpStatus.BAD_REQUEST.value());
         }
@@ -38,14 +42,29 @@ public class UserService {
         String encodingPassword = passwordEncoder.encode(password);
 
 
+        //아이디&이메일 중복 확인
         Users users = userRepository.findByUserName(userRequestDto.getUserName());
         if (users != null) {
             return new ResponseMsgDto("이미 등록된 아이디입니다.", HttpStatus.BAD_REQUEST.value());
         }
 
-        Users email2 = userRepository.findByEmail(userRequestDto.getEmail());
-        if (email2 != null) {
+        Users emails = userRepository.findByEmail(userRequestDto.getEmail());
+        if (emails != null) {
             return new ResponseMsgDto("이미 등록된 이메일입니다.", HttpStatus.BAD_REQUEST.value());
+        }
+
+
+       //제한 사항
+       String nameCheck = userRequestDto.getUserName();
+       String nameRegexp = "^[가-힣a-zA-Z0-9._-]{2,20}$";
+       if(!nameCheck.matches(nameRegexp)){
+           return new ResponseMsgDto("아이디는 2~20자 내외여야합니다.", HttpStatus.BAD_REQUEST.value());
+       }
+
+       String emailCheck = userRequestDto.getEmail();
+       String emailRegexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        if(!emailCheck.matches(emailRegexp)){
+            return new ResponseMsgDto("이메일 형식으로 등록해주세요.", HttpStatus.BAD_REQUEST.value());
         }
 
 
@@ -60,10 +79,13 @@ public class UserService {
     public ResponseMsgDto login(UserRequestDto userRequestDto, HttpServletResponse response) {
         String password = userRequestDto.getPassword();
 
-        Users users = userRepository.findByUserName(userRequestDto.getUserName());
+
+        Users users = userRepository.findByEmail(userRequestDto.getEmail());
         if (users == null) {
-            return new ResponseMsgDto("등록되지 않은 아이디입니다.", HttpStatus.BAD_REQUEST.value());
+            throw new IllegalArgumentException("등록되지 않은 이메일입니다.");
         }
+
+        String encodingPassword = passwordEncoder.encode(password);
 
         if (!matches(password, users.getPassword())) {
             return new ResponseMsgDto("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST.value());
