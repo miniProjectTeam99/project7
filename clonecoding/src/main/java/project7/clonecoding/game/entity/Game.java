@@ -76,7 +76,6 @@ public class Game extends Timestamp {
         }
     }
     public void update(StarRequestDto request) {
-
         this.star=request.getStar();
         log.info(String.valueOf(getStar()));
     }
