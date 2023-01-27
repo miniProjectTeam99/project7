@@ -23,7 +23,7 @@ public class Comment extends Timestamp {
 
     //별점
     @Column(nullable = false)
-    private String star;
+    private Float star;
 
     //스포일러 유무
     @Column(nullable = false)
@@ -39,10 +39,11 @@ public class Comment extends Timestamp {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    public Comment (CommentRequestDto commentDto) {
+    public Comment (CommentRequestDto commentDto, Users user) {
         this.content = commentDto.getComment();
         this.star = commentDto.getStar();
         this.isspoil = commentDto.getIsSpoil();
+        this.user = user;
     }
 
     public void update(CommentRequestDto requestDto){

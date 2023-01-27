@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentRequestDto {
     private String comment;
-    private String star;
+    private Float star;
     private Boolean isSpoil;
 }

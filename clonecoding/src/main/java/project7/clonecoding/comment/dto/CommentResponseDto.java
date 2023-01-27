@@ -9,5 +9,5 @@ public class CommentResponseDto {
     private String userName;
     private String createdDate;
     private String comment;
-    private int star;
+    private Float star;
 }
