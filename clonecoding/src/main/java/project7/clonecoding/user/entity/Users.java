@@ -34,8 +34,8 @@ public class Users extends Timestamped{
         this.role = UserRoleEnum.USER;
     }
 
-    public void changePassword(UserRequestDto userRequestDto, String password){
-        this.userName = userRequestDto.getUserName();
+    public void changePassword(String password){
+
         this.password = password;
     }
 

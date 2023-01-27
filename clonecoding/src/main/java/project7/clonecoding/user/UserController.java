@@ -17,19 +17,19 @@ public class UserController {
     private final UserService userService;
 
     @ApiOperation(value = "회원가입", notes = "회원가입")
-    @PostMapping("/users/signup")
+    @PostMapping("/user/signup")
     public ResponseMsgDto signup(@RequestBody UserRequestDto userRequestDto, HttpServletResponse response){
         return userService.signup(userRequestDto, response);
     }
 
     @ApiOperation(value = "로그인", notes = "로그인을 한다")
-    @PostMapping("/users/login")
+    @PostMapping("/user/login")
     public ResponseMsgDto login(@RequestBody UserRequestDto userRequestDto, HttpServletResponse response){
         return userService.login(userRequestDto,response);
     }
 
     @ApiOperation(value = "유저 비번 변경")
-    @PutMapping("/users/changePassword/{id}")
+    @PutMapping("/user/changePassword/{id}")
     public Long changePassword(@PathVariable long id,@RequestBody UserRequestDto userRequestDto){
         return userService.changeData(id, userRequestDto);
     }

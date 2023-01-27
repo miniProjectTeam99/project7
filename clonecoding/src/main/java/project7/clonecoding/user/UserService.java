@@ -1,6 +1,7 @@
 package project7.clonecoding.user;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import static java.util.regex.Pattern.matches;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
@@ -79,15 +81,12 @@ public class UserService {
     public ResponseMsgDto login(UserRequestDto userRequestDto, HttpServletResponse response) {
         String password = userRequestDto.getPassword();
 
-
         Users users = userRepository.findByEmail(userRequestDto.getEmail());
         if (users == null) {
             throw new IllegalArgumentException("등록되지 않은 이메일입니다.");
         }
 
-        String encodingPassword = passwordEncoder.encode(password);
-
-        if (!matches(password, users.getPassword())) {
+        if (!passwordEncoder.matches(password, users.getPassword())) {
             return new ResponseMsgDto("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST.value());
         }
 
@@ -107,9 +106,9 @@ public class UserService {
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
 
-        users.changePassword(userRequestDto,password);
+        users.changePassword(password);
 
-        return users.getId();
+        return 10000000+users.getId();
     }
 
 }
