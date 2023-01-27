@@ -31,7 +31,7 @@ public class Game extends Timestamp {
 
     @Column
     //게임 타이틀 이미지 url
-    private String imageUrl="";
+    private String titleUrl="";
 
     @Column
     //게임 플레이 이미지 url
