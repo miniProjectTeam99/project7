@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import project7.clonecoding.game.dto.GameRequestDto;
 import project7.clonecoding.game.dto.StarRequestDto;
 import project7.clonecoding.timestamp.Timestamp;
-import project7.clonecoding.user.entity.Users;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -19,27 +18,44 @@ public class Game extends Timestamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //게임 이름
     @Column(nullable = false)
+    //게임 이름
     private String gameTitle;
-    //게임 설명
     @Column
+    //상세정보
     private String description;
-    //상품 이미지 url
+
     @Column
+    //스토리
+    private String story;
+
+    @Column
+    //게임 타이틀 이미지 url
     private String imageUrl="";
+
+    @Column
+    //게임 플레이 이미지 url
+    private String galleryUrl="";
+
+    @Column
     //난이도
-    @Column
     private String difficulty;
+
+    @Column
     //플레이타임
-    @Column
     private String playTime;
+
+    @Column
+    //사람 수
+    private int people;
+
+    @Column(nullable = false)
     //별점
-    @Column
     private float star=0;
-    //게시글을 작성한 유저
+
     @Column
-    private Long userId;
+    //키트 유무
+    private boolean kit=false;
 
     public Game(GameRequestDto gameRequestDto) {
 //        if(gameRequestDto.getImageResponseDto().getUrl() == null) {
@@ -49,7 +65,6 @@ public class Game extends Timestamp {
 //        }
         this.gameTitle = gameRequestDto.getGameTitle();
         this.description = gameRequestDto.getDescription();
-//        this.userId = user.getId();
     }
 
     public void update(GameRequestDto request) {
