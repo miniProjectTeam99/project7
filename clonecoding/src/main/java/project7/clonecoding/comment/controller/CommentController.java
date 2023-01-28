@@ -24,13 +24,13 @@ public class CommentController {
     }
 
     //댓글 수정
-    @PatchMapping("/comment/{commentId}")
+    @PatchMapping("/comments/{commentId}")
     public ResponseDto updateComment(@PathVariable Long commentId, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return commentService.updateComment(commentId, requestDto, userDetails.getUser());
     }
 
     //댓글 삭제
-    @DeleteMapping("/comment/{commentId}")
+    @DeleteMapping("/comments/{commentId}")
     public ResponseDto deleteComment(@PathVariable Long commentId, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return commentService.deleteComment(commentId, requestDto, userDetails.getUser());
     }

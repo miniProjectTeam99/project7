@@ -2,16 +2,14 @@ package project7.clonecoding.user.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import project7.clonecoding.user.dto.LoginRequestDto;
-import project7.clonecoding.user.dto.SignupRequestDto;
+import project7.clonecoding.user.dto.UserRequestDto;
 
 import javax.persistence.*;
-
 
 @Entity
 @Getter
 @NoArgsConstructor
-public class Users {
+public class Users extends Timestamped{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,16 +27,16 @@ public class Users {
     @Enumerated(value = EnumType.STRING)
     private UserRoleEnum role;
 
-    public Users(SignupRequestDto signupRequestDto, UserRoleEnum role){
-        this.userName = signupRequestDto.getUserName();
-        this.password = signupRequestDto.getPassword();
-        this.email = signupRequestDto.getEmail();
+    public Users(UserRequestDto userRequestDto, String password, UserRoleEnum role){
+        this.userName = userRequestDto.getUserName();
+        this.email = userRequestDto.getEmail();
+        this.password = password;
         this.role = UserRoleEnum.USER;
     }
 
-    public void login(LoginRequestDto loginRequestDto){
-        this.userName = loginRequestDto.getUserName();
-        this.password = loginRequestDto.getPassword();
+    public void changePassword(String password){
+
+        this.password = password;
     }
 
 }

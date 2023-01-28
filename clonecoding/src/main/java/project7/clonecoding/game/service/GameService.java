@@ -1,12 +1,12 @@
 package project7.clonecoding.game.service;
 
 import lombok.extern.slf4j.Slf4j;
-import project7.clonecoding.game.dto.GameRequestDto;
-import project7.clonecoding.game.dto.GameResponseDto;
-import project7.clonecoding.game.dto.ResponseDto;
-import project7.clonecoding.game.dto.StarRequestDto;
+import org.springframework.web.bind.annotation.PathVariable;
+import project7.clonecoding.game.dto.*;
 import project7.clonecoding.game.entity.Game;
+import project7.clonecoding.game.entity.Realtable;
 import project7.clonecoding.game.repository.GameRepository;
+import project7.clonecoding.game.repository.RealRepository;
 import project7.clonecoding.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ import java.util.List;
 public class GameService {
     private final GameRepository gameRepository;
     private final UserRepository userRepository;
-
+    private final RealRepository realRepository;
     //게시글 작성하기
     @Transactional
     public ResponseDto createGame(GameRequestDto gameRequestDto)  {
@@ -93,4 +93,22 @@ public class GameService {
                 ()-> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
         );
     }
+
+    //게임 정보 보내주기
+    public GameResponseDto2 gameFind(@PathVariable Long id) {
+        Realtable real = realRepository.findById(id).orElseThrow(
+                ()-> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
+        );
+
+        //value 컬럼의 정보를 valueList에 담는다.
+        String value = real.getValue();
+        String[] valueList = value.split("&&");
+
+        //gameintro(게임설명 이미지)를 gameintroList에 담는다.
+        String gameintro = real.getGameintro();
+        String[] gameintroList = gameintro.split("&&");
+
+        return new GameResponseDto2(real,valueList,gameintroList);
+    }
+
 }

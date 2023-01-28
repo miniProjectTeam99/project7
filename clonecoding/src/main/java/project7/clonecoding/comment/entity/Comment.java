@@ -39,13 +39,16 @@ public class Comment extends Timestamp {
     @JoinColumn(name = "game_id")
     private Game game;
 
-    public Comment (CommentRequestDto commentDto) {
+    public Comment (CommentRequestDto commentDto, Users user) {
         this.content = commentDto.getComment();
         this.star = commentDto.getStar();
         this.isspoil = commentDto.getIsSpoil();
+        this.user = user;
     }
 
     public void update(CommentRequestDto requestDto){
-        content = requestDto.getComment();
+        this.content = requestDto.getComment();
+        this.star = requestDto.getStar();
+        this.isspoil = requestDto.getIsSpoil();
     }
 }
