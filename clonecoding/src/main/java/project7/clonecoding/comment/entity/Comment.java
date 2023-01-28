@@ -23,7 +23,7 @@ public class Comment extends Timestamp {
 
     //별점
     @Column(nullable = false)
-    private String star;
+    private Integer star;
 
     //스포일러 유무
     @Column(nullable = false)

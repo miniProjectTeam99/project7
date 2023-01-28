@@ -29,7 +29,7 @@ public class UserController {
     }
 
     @ApiOperation(value = "유저 비번 변경")
-    @PutMapping("/user/changePassword/{id}")
+    @PutMapping("/user/{id}")
     public Long changePassword(@PathVariable long id,@RequestBody UserRequestDto userRequestDto){
         return userService.changeData(id, userRequestDto);
     }

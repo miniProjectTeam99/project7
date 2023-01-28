@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentResponseDto {
     private String userName;
-    private String createdDate;
     private String comment;
-    private int star;
+    private Integer star;
+    private Boolean isSpoil;
 }
