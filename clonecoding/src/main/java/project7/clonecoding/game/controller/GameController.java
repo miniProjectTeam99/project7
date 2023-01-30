@@ -20,19 +20,31 @@ import java.util.List;
 public class GameController {
 
     private final GameService gameService;
-
-    //게임 목록 전체 조회
-    @ApiOperation(value = "게임 전체 조회", notes = "게임 목록의 전체정보를 조회한다.")
-    @GetMapping("/games")
-    public GameResponseDto getGame() {
-        return gameService.getGames();
+    @ApiOperation(value = "평점순 조회", notes = "등록된 게시글 목록 전체를 평점 순으로 조회한다.")
+    @GetMapping("/games/star")
+    public List<GameResponseDto> getGamesStar() {
+        return gameService.getGamesStar();
     }
-
+    @ApiOperation(value = "최신순 조회", notes = "등록된 게시글 목록 전체를 최신 순으로 조회한다.")
+    @GetMapping("/games/recent")
+    public List<GameResponseDto> getGamesRecent() {
+        return gameService.getGamesRecent();
+    }
+    @ApiOperation(value = "무료게임 조회", notes = "등록된 게시글 목록 중 무료게임을 조회한다.")
+    @GetMapping("/games/free")
+    public List<GameResponseDto> getFreeGames() {
+        return gameService.getFreeGames();
+    }
     //게임 id로 단건 조회
     @ApiOperation(value = "게임 단일 상세 조회", notes = "게임 id로 목록을 상세 조회한다.")
-    @GetMapping("/games/{gameId}")
-    public GameResponseDto getGame(@PathVariable Long gameId) {
-        return gameService.getGame(gameId);
+    @GetMapping("/games/sc/{gameId}")
+    public GameResponseDto getGameScreenShot(@PathVariable Long gameId) {
+        return gameService.getGameScreenShot(gameId);
     }
-
+    //게임 id로 단건 조회
+    @ApiOperation(value = "게임 단일 상세 조회", notes = "게임 id로 목록을 상세 조회한다.")
+    @GetMapping("/games/info/{gameId}")
+    public GameResponseDto getGameInfo(@PathVariable Long gameId) {
+        return gameService.getGameInfo(gameId);
+    }
 }
