@@ -34,11 +34,11 @@ public class UserService {
 
         // 비밀번호 길이 체크 & 비밀번호와 비밀번호 체크 입력값 확인 후 같을 경우 암호화
         if(password.length()<8){
-            throw new IllegalArgumentException("8글자 이상으로 만들어주세요.");
+            return new ResponseMsgDto("8글자 이상으로 만들어주세요.", HttpStatus.BAD_REQUEST.value());
         }
 
         if(!matches(password,passwordCheck)){
-            throw new IllegalArgumentException("비밀번호가 서로 다릅니다.");
+            return new ResponseMsgDto("비밀번호가 서로 다릅니다.", HttpStatus.BAD_REQUEST.value());
         }
 
         String encodingPassword = passwordEncoder.encode(password);
@@ -47,12 +47,12 @@ public class UserService {
         //아이디&이메일 중복 확인
         Users users = userRepository.findByUserName(userRequestDto.getUserName());
         if (users != null) {
-            throw new IllegalArgumentException("이미 등록된 아이디입니다.");
+            return new ResponseMsgDto("이미 등록된 아이디입니다.", HttpStatus.BAD_REQUEST.value());
         }
 
         Users emails = userRepository.findByEmail(userRequestDto.getEmail());
         if (emails != null) {
-            throw new IllegalArgumentException("이미 등록된 이메일입니다.");
+            return new ResponseMsgDto("이미 등록된 이메일입니다.", HttpStatus.BAD_REQUEST.value());
         }
 
 
@@ -60,13 +60,13 @@ public class UserService {
        String nameCheck = userRequestDto.getUserName();
        String nameRegexp = "^[가-힣a-zA-Z0-9._-]{2,20}$";
        if(!nameCheck.matches(nameRegexp)){
-           throw new IllegalArgumentException("아이디는 2~20자 내외여야합니다.");
+           return new ResponseMsgDto("아이디는 2~20자 내외여야합니다.", HttpStatus.BAD_REQUEST.value());
        }
 
        String emailCheck = userRequestDto.getEmail();
        String emailRegexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         if(!emailCheck.matches(emailRegexp)){
-            throw new IllegalArgumentException("이메일 형식으로 등록해주세요.");
+            return new ResponseMsgDto("이메일 형식으로 등록해주세요.", HttpStatus.BAD_REQUEST.value());
         }
 
 
@@ -83,11 +83,11 @@ public class UserService {
 
         Users users = userRepository.findByEmail(userRequestDto.getEmail());
         if (users == null) {
-            throw new IllegalArgumentException("등록되지 않은 이메일입니다.");
+            return new ResponseMsgDto("등록되지 않은 이메일입니다.",HttpStatus.BAD_REQUEST.value());
         }
 
         if (!passwordEncoder.matches(password, users.getPassword())) {
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+            return new ResponseMsgDto("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST.value());
         }
 
         // 토큰
@@ -98,17 +98,33 @@ public class UserService {
     }
 
     @Transactional
-    public Long changeData(Long id, UserRequestDto userRequestDto) {
+    public Integer changeData(Long id, UserRequestDto userRequestDto,Users users) {
 
-        String password = passwordEncoder.encode(userRequestDto.getPassword());
+        String password = userRequestDto.getPassword();
 
-        Users users = userRepository.findById(id).orElseThrow(
+        if(password.length()<8)
+            return HttpStatus.BAD_REQUEST.value();
+
+        String encodedPassword = passwordEncoder.encode(userRequestDto.getPassword());
+
+        users = userRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
 
-        users.changePassword(password);
+        users.changePassword(encodedPassword);
 
-        return 10000000+users.getId();
+        return HttpStatus.OK.value();
+    }
+
+    @Transactional
+    public Integer deleteUsersData(Long id, UserRequestDto userRequestDto,Users users){
+        users = userRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
+        );
+        if(users.getUserName().equals(userRequestDto.getUserName())) {
+            userRepository.delete(users);
+        }
+         return HttpStatus.OK.value();
     }
 
 }

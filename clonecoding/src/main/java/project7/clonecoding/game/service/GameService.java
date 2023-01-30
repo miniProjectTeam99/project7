@@ -4,16 +4,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PathVariable;
 import project7.clonecoding.game.dto.*;
 import project7.clonecoding.game.entity.Game;
-import project7.clonecoding.game.entity.Realtable;
 import project7.clonecoding.game.repository.GameRepository;
-import project7.clonecoding.game.repository.RealRepository;
 import project7.clonecoding.user.UserRepository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -22,40 +19,22 @@ import java.util.List;
 public class GameService {
     private final GameRepository gameRepository;
     private final UserRepository userRepository;
-    private final RealRepository realRepository;
-    //게시글 작성하기
-    @Transactional
-    public ResponseDto createGame(GameRequestDto gameRequestDto)  {
-        log.info("ㄱㄱ");
-        // 게시글 객체 생성
-        Game game = new Game(gameRequestDto);
-        //게시글 객체 db에 저장
-        gameRepository.save(game);
-        //msg: 게시글 작성완료! 반환
-        return new ResponseDto("게시글 작성 완료!");
+
+    //게임 정보 단건으로 보내기 (추가한 내용)
+    public GameResponseDto getGame(@PathVariable Long id) {
+
+        Game game = gameRepository.findById(id).orElseThrow(
+                ()-> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
+        );
+
+        return new GameResponseDto(game);
     }
 
-    //전체 게시글 조회하기
-    @Transactional
-    public List<GameResponseDto> getGames() {
-        List<GameResponseDto> list = new ArrayList<>();
-        List<Game> gameList;
-        gameList = gameRepository.findAllByOrderByCreatedAtDesc();
-        for (Game game : gameList) {
-            list.add(new GameResponseDto(game));
-        }
+    //게임 정보 단건으로 보내기 (추가한 내용)
+    public GameResponseDto getGames() {
 
-        return list;
-    }
+        List<Game> game = gameRepository.findAll();
 
-//    게시물 id로 조회하기
-    @Transactional
-    public GameResponseDto getGame(Long id) {
-        //id로 게시물 조회하기
-        Game game = findGameById(id);
-//        userRepository.findById(game.getUserId()).orElseThrow(
-//                ()-> new IllegalArgumentException("존재하지 않는 게시글입니다.")
-//        );
         return new GameResponseDto(game);
     }
 
@@ -65,7 +44,7 @@ public class GameService {
         //id로 게시물 찾기
         Game game = findGameById(id);
         //게시물 수정
-        game.update(request);
+//        game.update(request);
         return new ResponseDto("수정 완료.");
     }
     //게시물 수정
@@ -74,7 +53,7 @@ public class GameService {
         //id로 게시물 찾기
         Game game = findGameById(id);
         //게시물 수정
-        game.update(request);
+//        game.update(request);
         return new ResponseDto("평점 매기기 완료.");
     }
     //게시물 delete
@@ -92,23 +71,6 @@ public class GameService {
         return gameRepository.findById(id).orElseThrow(
                 ()-> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
         );
-    }
-
-    //게임 정보 보내주기
-    public GameResponseDto2 gameFind(@PathVariable Long id) {
-        Realtable real = realRepository.findById(id).orElseThrow(
-                ()-> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
-        );
-
-        //value 컬럼의 정보를 valueList에 담는다.
-        String value = real.getValue();
-        String[] valueList = value.split("&&");
-
-        //gameintro(게임설명 이미지)를 gameintroList에 담는다.
-        String gameintro = real.getGameintro();
-        String[] gameintroList = gameintro.split("&&");
-
-        return new GameResponseDto2(real,valueList,gameintroList);
     }
 
 }

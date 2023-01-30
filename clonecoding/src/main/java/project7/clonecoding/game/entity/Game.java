@@ -1,12 +1,12 @@
 package project7.clonecoding.game.entity;
 
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.extern.slf4j.Slf4j;
-import project7.clonecoding.game.dto.GameRequestDto;
-import project7.clonecoding.game.dto.StarRequestDto;
+import org.hibernate.annotations.TypeDef;
+
 import project7.clonecoding.timestamp.Timestamp;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 
 import javax.persistence.*;
 
@@ -14,69 +14,49 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
+@TypeDef(name = "json", typeClass = JsonBinaryType.class)
 public class Game extends Timestamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
-    //게임 이름
+
+    @Column//게임 이름
     private String gameTitle;
-    @Column
-    //상세정보
-    private String description;
 
-    @Column
-    //스토리
-    private String story;
+    @Column//게임 이미지(리스트)
+    private String titleImg;
 
-    @Column
-    //게임 타이틀 이미지 url
-    private String titleUrl="";
+    @Column//모바일 or not
+    private Boolean playType;
 
-    @Column
-    //게임 플레이 이미지 url
-    private String galleryUrl="";
+    @Column//게임 가격(예시: 4,000원)
+    private String gamePrice;
 
-    @Column
-    //난이도
+    @Column//게임 점수(후시 4.9점)
+    private String star;
+
+    @Column//게임 난이도
     private String difficulty;
 
-    @Column
-    //플레이타임
+    @Column//kit유무
+    private Boolean kit;
+
+    @Column//게임 시간
     private String playTime;
 
-    @Column
-    //사람 수
-    private int people;
+    @Column(columnDefinition = "json")
+    private String gameImg;
 
-    @Column(nullable = false)
-    //별점
-    private float star=0;
+    @Column//게임 스토리
+    private String story;
 
-    @Column
-    //키트 유무
-    private boolean kit=false;
+    @Column//게임 인원
+    private String people;
 
-    public Game(GameRequestDto gameRequestDto) {
-//        if(gameRequestDto.getImageResponseDto().getUrl() == null) {
-//            this.imageUrl = "기본 이미지 주소";
-//        }else{
-//            this.imageUrl = gameRequestDto.getImageResponseDto().getUrl();
-//        }
-        this.gameTitle = gameRequestDto.getGameTitle();
-        this.description = gameRequestDto.getDescription();
-    }
+    @Column//게임 상세
+    private String gameDesc;
 
-    public void update(GameRequestDto request) {
-        if(request.getGameTitle() != null) {
-            this.gameTitle = request.getGameTitle();
-        }
-        if(request.getDescription() != null) {
-            this.description = request.getDescription();
-        }
-    }
-    public void update(StarRequestDto request) {
-        this.star=request.getStar();
-        log.info(String.valueOf(getStar()));
-    }
+    @Column//게임 카테고리
+    private String category;
+
 }

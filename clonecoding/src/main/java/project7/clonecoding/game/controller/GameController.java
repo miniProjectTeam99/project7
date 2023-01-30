@@ -21,31 +21,18 @@ public class GameController {
 
     private final GameService gameService;
 
-    //게임 등록
-    @ApiOperation(value = "게시글 추가(게임등록)", notes = "게임을 올린다.")
-    @PostMapping("/games")
-    public ResponseDto createGame(@RequestBody GameRequestDto gameRequestDto) {
-//        log.info(gameRequestDto.getImageResponseDto().getFullName());
-        return gameService.createGame(gameRequestDto);
-    }
-    //게임 전체목록 조회
-    @ApiOperation(value = "게임 목록 전체 조회", notes = "등록된 게시글 목록 전체를 조회한다.")
-    @GetMapping("/games/list")
-    public List<GameResponseDto> getGames() {
-        return gameService.getGames();
-    }
-
     //게임 id로 단건 조회
     @ApiOperation(value = "게시글 단일 상세 조회", notes = "게시글의 id로 목록을 상세 조회한다.")
-        @GetMapping("/games/{id}")
-    public GameResponseDto getGame(@PathVariable Long id) {
-        return gameService.getGame(id);
+    @GetMapping("/games/{gameId}")
+    public GameResponseDto getGame(@PathVariable Long gameId) {
+        return gameService.getGame(gameId);
     }
 
-    //게임 id로 단건 조회
-    @GetMapping("/gamesfind/{gameId}")
-    public GameResponseDto2 gameFind(@PathVariable Long gameId) {
-        return gameService.gameFind(gameId);
+    //게임 id로 전체 조회
+    @ApiOperation(value = "게시글 전체 조회", notes = "게시글의 메인 페이지 목록을 조회한다.")
+    @GetMapping("/games")
+    public GameResponseDto getGame() {
+        return gameService.getGames();
     }
 
     //게시글 id로 게시글 수정하기
