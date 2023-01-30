@@ -10,5 +10,8 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Game> findAllByOrderByIdDesc();
 
     List<Game> findAllByOrderByStarDesc();
-    List<Game> findAllByGamePriceContains(String s);
+    List<Game> findAllByGamePriceEqualsOrderByIdDesc(int gamePrice);
+    List<Game> findAllByGamePriceGreaterThanOrderByGamePriceDesc(int gamePrice);
+
+
 }

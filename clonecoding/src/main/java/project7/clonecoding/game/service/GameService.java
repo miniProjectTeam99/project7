@@ -42,10 +42,17 @@ public class GameService {
         for (int i=0;i<10;i++) {list.add(new GameResponseDto(gameList.get(i),""));}
         return list;
     }
-    public List<GameResponseDto> getFreeGames() {
+    public List<GameResponseDto> getFreeGames() { //무료게임
         List<GameResponseDto> list = new ArrayList<>();
         List<Game> gameList;
-        gameList = gameRepository.findAllByGamePriceContains("무료");
+        gameList = gameRepository.findAllByGamePriceEqualsOrderByIdDesc(0);
+        for (int i=0;i<6;i++) {list.add(new GameResponseDto(gameList.get(i),""));}
+        return list;
+    }
+    public List<GameResponseDto> getPayGames() { //유료게임(연습용으로 한 거)
+        List<GameResponseDto> list = new ArrayList<>();
+        List<Game> gameList;
+        gameList = gameRepository.findAllByGamePriceGreaterThanOrderByGamePriceDesc(0);
         for (int i=0;i<6;i++) {list.add(new GameResponseDto(gameList.get(i),""));}
         return list;
     }

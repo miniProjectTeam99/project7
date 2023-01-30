@@ -30,7 +30,7 @@ public class Game extends Timestamp {
     private Boolean playType;
 
     @Column//게임 가격(예시: 4,000원)
-    private String gamePrice;
+    private int gamePrice;
 
     @Column//게임 점수(후시 4.9점)
     private String star;
