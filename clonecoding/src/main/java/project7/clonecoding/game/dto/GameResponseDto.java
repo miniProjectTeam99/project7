@@ -45,7 +45,7 @@ public class GameResponseDto {
         } else {
             gamePrice = String.valueOf(game.getGamePrice());
         }
-        gameDesc = game.getGameDesc();
+        story = game.getStory();
     }
 
     public GameResponseDto(Game game, String Rct) {//최신순

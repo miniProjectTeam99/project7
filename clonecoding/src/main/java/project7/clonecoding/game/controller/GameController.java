@@ -33,7 +33,7 @@ public class GameController {
     public List<GameResponseDto> getFreeGames() {
         return gameService.getFreeGames();
     }
-    @ApiOperation(value = "유료게임 조회", notes = "등록된 게시글 목록 중 무료게임을 조회한다.")
+    @ApiOperation(value = "유료게임 조회", notes = "등록된 게시글 목록 중 유료게임을 조회한다.")
     @GetMapping("/games/pay")
     public List<GameResponseDto> getPayGames() {
         return gameService.getPayGames();
