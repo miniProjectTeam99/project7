@@ -83,7 +83,7 @@ public class UserService {
 
         Users users = userRepository.findByEmail(userRequestDto.getEmail());
         if (users == null) {
-            throw new IllegalArgumentException("등록되지 않은 이메일입니다.");
+            return new ResponseMsgDto("등록되지 않은 이메일입니다.",HttpStatus.BAD_REQUEST.value());
         }
 
         if (!passwordEncoder.matches(password, users.getPassword())) {
@@ -98,17 +98,33 @@ public class UserService {
     }
 
     @Transactional
-    public Long changeData(Long id, UserRequestDto userRequestDto) {
+    public Integer changeData(Long id, UserRequestDto userRequestDto,Users users) {
 
-        String password = passwordEncoder.encode(userRequestDto.getPassword());
+        String password = userRequestDto.getPassword();
 
-        Users users = userRepository.findById(id).orElseThrow(
+        if(password.length()<8)
+            return HttpStatus.BAD_REQUEST.value();
+
+        String encodedPassword = passwordEncoder.encode(userRequestDto.getPassword());
+
+        users = userRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
 
-        users.changePassword(password);
+        users.changePassword(encodedPassword);
 
-        return 10000000+users.getId();
+        return HttpStatus.OK.value();
+    }
+
+    @Transactional
+    public Integer deleteUsersData(Long id, UserRequestDto userRequestDto,Users users){
+        users = userRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
+        );
+        if(users.getUserName().equals(userRequestDto.getUserName())) {
+            userRepository.delete(users);
+        }
+         return HttpStatus.OK.value();
     }
 
 }

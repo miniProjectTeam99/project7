@@ -18,7 +18,7 @@ public class CommentLikeService {
     private final CommentLikeRepository commentLikeRepository;
 
     @Transactional
-    public ResponseMsgDto commentLike(Long id, Long commentId, Users user) {
+    public ResponseMsgDto commentLike(Long commentId, Users user) {
         Comment comment = commentRepository.findById(commentId).orElseThrow(
                 () -> new IllegalArgumentException("존재하지 않는 댓글입니다.")
         );
