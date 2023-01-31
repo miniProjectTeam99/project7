@@ -54,7 +54,7 @@ public class Users extends Timestamped{
     }
     public void iDStop(int i){
         if (failCount>4){
-            log.info("횟수: "+i+" 입니다. 아이디를 정지합니다.");}else{
+            log.info("횟수: "+i+" 입니다. 본인이 맞으신가요?");}else{
             log.info("횟수: "+ i);
         }
     }

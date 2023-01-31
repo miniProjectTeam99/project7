@@ -34,11 +34,11 @@ public class UserService {
 
         // 비밀번호 길이 체크 & 비밀번호와 비밀번호 체크 입력값 확인 후 같을 경우 암호화
         if(password.length()<8){
-            return new ResponseMsgDto("8글자 이상으로 만들어주세요.", HttpStatus.BAD_REQUEST.value());
+            throw new IllegalArgumentException("8글자 이상으로 만들어주세요.");
         }
 
         if(!matches(password,passwordCheck)){
-            return new ResponseMsgDto("비밀번호가 서로 다릅니다.", HttpStatus.BAD_REQUEST.value());
+            throw new IllegalArgumentException("비밀번호가 서로 다릅니다.");
         }
 
         String encodingPassword = passwordEncoder.encode(password);
@@ -47,12 +47,12 @@ public class UserService {
         //아이디&이메일 중복 확인
         Users users = userRepository.findByUserName(userRequestDto.getUserName());
         if (users != null) {
-            return new ResponseMsgDto("이미 등록된 아이디입니다.", HttpStatus.BAD_REQUEST.value());
+            throw new IllegalArgumentException("이미 등록된 이름입니다.");
         }
 
         Users emails = userRepository.findByEmail(userRequestDto.getEmail());
         if (emails != null) {
-            return new ResponseMsgDto("이미 등록된 이메일입니다.", HttpStatus.BAD_REQUEST.value());
+            throw new IllegalArgumentException("이미 등록된 이메일입니다.");
         }
 
 
@@ -60,13 +60,13 @@ public class UserService {
         String nameCheck = userRequestDto.getUserName();
         String nameRegexp = "^[가-힣a-zA-Z0-9._-]{2,20}$";
         if(!nameCheck.matches(nameRegexp)){
-            return new ResponseMsgDto("아이디는 2~20자 내외여야합니다.", HttpStatus.BAD_REQUEST.value());
+            throw new IllegalArgumentException("아이디는 2~20자 내외여야합니다.");
         }
 
         String emailCheck = userRequestDto.getEmail();
         String emailRegexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         if(!emailCheck.matches(emailRegexp)){
-            return new ResponseMsgDto("이메일 형식으로 등록해주세요.", HttpStatus.BAD_REQUEST.value());
+            throw new IllegalArgumentException("이메일 형식으로 등록해주세요.");
         }
 
 
@@ -95,7 +95,7 @@ public class UserService {
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER,
                 jwtUtil.createToken(users.getUserName(), users.getRole()));
         int clear = users.getFailCount();users.setFailCount(0);
-        return new ResponseMsgDto("로그인 성공.마지막 로그인 전까지 로그인 실패횟수는 "+clear+" 회 입니다.", HttpStatus.OK.value());
+        return new ResponseMsgDto("로그인 성공.마지막 로그인 전까지 로그인 실패횟수는 "+clear+" 회 입니다.",HttpStatus.OK.value());
     }
 
     @Transactional
