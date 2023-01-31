@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Slf4j
 @NoArgsConstructor
@@ -44,6 +45,7 @@ public class Game extends Timestamp {
     @Column//게임 시간
     private String playTime;
 
+    //@Convert(converter = StringArrayConverter.class) // List<String> 때 사용
     @Column(columnDefinition = "json")
     private String gameImg;
 

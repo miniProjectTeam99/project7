@@ -26,6 +26,20 @@ public class GameService {
 //        );
 //        return new GameResponseDto(game, id);
 //    }
+    //게임 정보 단건으로 보내기 (추가한 내용)
+    public GameResponseDto getGame(@PathVariable Long id) {
+        Game game = gameRepository.findById(id).orElseThrow(
+                ()-> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
+        );
+        return new GameResponseDto(game);
+    }
+
+    //게임 정보 전체 조회
+    public GameResponseDto getGames() {
+        List<Game> game = gameRepository.findAll();
+        return new GameResponseDto(game);
+    }
+
     //전체 게시글 조회하기(평점 순으로)
     public List<GameResponseDto> getGamesStar() {
         List<GameResponseDto> list = new ArrayList<>();

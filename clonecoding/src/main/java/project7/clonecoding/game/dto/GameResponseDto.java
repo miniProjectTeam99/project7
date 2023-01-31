@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import project7.clonecoding.game.entity.Game;
 
+import java.lang.reflect.Array;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -32,6 +33,7 @@ public class GameResponseDto {
     public GameResponseDto(List<Game> game, String Rct) {
         games = game;
     }
+
     public GameResponseDto(List<Game> gameList) {
         games = gameList;
     }
@@ -84,5 +86,25 @@ public class GameResponseDto {
         kit = game.getKit();
     }
 
+    public GameResponseDto(Game game){
+        this.id = game.getId();
+        gameTitle = game.getGameTitle();
+        titleImg = game.getTitleImg();
+        playType = game.getPlayType();
+        if (game.getGamePrice()==0) {
+            gamePrice = "무료";
+        } else {
+            gamePrice = String.valueOf(game.getGamePrice());
+        }
+        star = game.getStar();
+        difficulty = game.getDifficulty();
+        kit = game.getKit();
+        playTime = game.getPlayTime();
+        gameImg = game.getGameImg();
+        story = game.getStory();
+        people = game.getPeople();
+        gameDesc = game.getGameDesc();
+        category = game.getCategory();
+    }
 
 }
