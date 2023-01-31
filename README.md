@@ -23,12 +23,8 @@
 ## 🥾 구현 기능
 
 
-## 📝 API
-![7팀 리얼월드 API 명세]
-
-
-## ↔ ERD
-![RealWorldErd](https://user-images.githubusercontent.com/120078825/215765855-c49289f0-f40c-4fb5-a6a3-3261817114c1.png)
+## 📝 API, ERD
+notion) https://www.notion.so/spartaclonecoding7/7-532c49de6ad74528b54b30e50f681b6d
 
 
 ## 🔭 overView
@@ -37,7 +33,4 @@
 ![image (2)]
 
 
-
-## 🔗 link
-- notion) https://www.notion.so/spartaclonecoding7/7-532c49de6ad74528b54b30e50f681b6d
 
