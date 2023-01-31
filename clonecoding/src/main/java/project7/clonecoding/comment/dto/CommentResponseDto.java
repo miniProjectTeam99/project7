@@ -10,4 +10,5 @@ public class CommentResponseDto {
     private String comment;
     private Integer star;
     private Boolean isSpoil;
+
 }

@@ -25,6 +25,7 @@ public class Comment extends Timestamp {
     @Column(nullable = false)
     private Integer star;
 
+
     //스포일러 유무
     @Column(nullable = false)
     private boolean isspoil;

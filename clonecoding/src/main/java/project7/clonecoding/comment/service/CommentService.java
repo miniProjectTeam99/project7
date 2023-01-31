@@ -7,8 +7,12 @@ import project7.clonecoding.comment.dto.CommentRequestDto;
 import project7.clonecoding.comment.entity.Comment;
 import project7.clonecoding.comment.repository.CommentRepository;
 import project7.clonecoding.game.dto.ResponseDto;
+import project7.clonecoding.game.entity.Game;
+import project7.clonecoding.game.repository.GameRepository;
 import project7.clonecoding.user.UserRepository;
 import project7.clonecoding.user.entity.Users;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,12 +20,14 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final UserRepository userRepository;
+    private final GameRepository gameRepository;
 
     @Transactional
-    public ResponseDto createComments(CommentRequestDto commentRequestDto, Users user) {
+    public ResponseDto createComments(Long gameId, CommentRequestDto commentRequestDto, Users user) {
         // 사용자 확인하기
         String username = user.getUserName();
         Users userFind = userRepository.findByUserName(username);
+//        Game game = gameRepository.findById(gameId);
 
         if (userFind == null){
             throw new IllegalArgumentException("해당 사용자가 없습니다.");
@@ -67,7 +73,6 @@ public class CommentService {
         if (userId != comment.getUser().getId()) {
             throw new IllegalArgumentException("본인의 댓글만 수정 가능합니다");
         }
-        comment.update(requestDto);
 
         //댓글 삭제
         commentRepository.deleteById(commentId);
