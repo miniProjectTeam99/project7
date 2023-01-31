@@ -58,6 +58,9 @@ public class Game extends Timestamp {
     @Column//게임 상세
     private String gameDesc;
 
+    @Column//게임 핵심 설명
+    private String gameDescShort;
+
     @Column//게임 카테고리
     private String category;
 

@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project7.clonecoding.comment.dto.CommentRequestDto;
+import project7.clonecoding.comment.dto.CommentResponseDto;
 import project7.clonecoding.comment.entity.Comment;
 import project7.clonecoding.comment.repository.CommentRepository;
 import project7.clonecoding.game.dto.ResponseDto;
@@ -76,5 +77,16 @@ public class CommentService {
         //댓글 삭제
         commentRepository.deleteById(commentId);
         return new ResponseDto("댓글 삭제 성공");
+    }
+
+    //게임 아이디에 맞는 댓글 전송
+    public CommentResponseDto getComment(Long gameId) {
+
+        //DB에서 댓글 찾아오기
+        Comment comment = commentRepository.findById(gameId).orElseThrow(
+                () -> new IllegalArgumentException("해당 게임의 댓글은 없습니다.")
+        );
+
+        return new CommentResponseDto(comment);
     }
 }

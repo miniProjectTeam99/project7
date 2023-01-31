@@ -118,14 +118,14 @@ public class UserService {
     }
 
     @Transactional
-    public Integer deleteUsersData(Long id, UserRequestDto userRequestDto,Users users){
+    public Integer deleteUsersData(Long id, UserRequestDto userRequestDto, Users users){
         users = userRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
-        if(users.getUserName().equals(userRequestDto.getUserName())) {
-            userRepository.delete(users);
-        }
-         return HttpStatus.OK.value();
+//        if(users.getUserName().equals(userRequestDto.getUserName())) {
+        userRepository.delete(users);
+//        }
+        return HttpStatus.OK.value();
     }
 
 }

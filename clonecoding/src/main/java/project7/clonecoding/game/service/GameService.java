@@ -20,13 +20,6 @@ public class GameService {
     private final GameRepository gameRepository;
 
     //게임 정보 단건으로 보내기 (추가한 내용)
-//    public GameResponseDto getGame(@PathVariable Long id) {
-//        Game game = gameRepository.findById(id).orElseThrow(
-//                ()-> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
-//        );
-//        return new GameResponseDto(game, id);
-//    }
-    //게임 정보 단건으로 보내기 (추가한 내용)
     public GameResponseDto getGame(@PathVariable Long id) {
         Game game = gameRepository.findById(id).orElseThrow(
                 ()-> new IllegalArgumentException("해당 게시물은 존재하지 않습니다.")
@@ -48,6 +41,7 @@ public class GameService {
         for (int i=0;i<10;i++) {list.add(new GameResponseDto(gameList.get(i),0));}
         return list;
     }
+
     //전체 게시글 조회하기(최신순으로)
     public List<GameResponseDto> getGamesRecent() {
         List<GameResponseDto> list = new ArrayList<>();

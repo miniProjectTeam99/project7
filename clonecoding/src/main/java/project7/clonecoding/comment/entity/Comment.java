@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Comment extends Timestamp {
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,16 +20,6 @@ public class Comment extends Timestamp {
     //댓글내용
     @Column(nullable = false)
     private String content;
-
-    //별점
-    @Column(nullable = false)
-    private Integer star;
-
-
-
-    //스포일러 유무
-    @Column(nullable = false)
-    private boolean isspoil;
 
     //유저와 다대일 매핑
     @ManyToOne(fetch = FetchType.LAZY)
@@ -43,14 +33,10 @@ public class Comment extends Timestamp {
 
     public Comment (CommentRequestDto commentDto, Users user) {
         this.content = commentDto.getComment();
-        this.star = commentDto.getStar();
-        this.isspoil = commentDto.getIsSpoil();
         this.user = user;
     }
 
     public void update(CommentRequestDto requestDto){
         this.content = requestDto.getComment();
-        this.star = requestDto.getStar();
-        this.isspoil = requestDto.getIsSpoil();
     }
 }
