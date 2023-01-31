@@ -50,5 +50,5 @@
 
 
 ## 🔗 link
-- notion) https://www.notion.so/MiniProject_Kiosk-8cd7c5bf6c7d499d91ffd4c4cf1dcf89](https://www.notion.so/spartaclonecoding7/7-532c49de6ad74528b54b30e50f681b6d)
+- notion) https://www.notion.so/spartaclonecoding7/7-532c49de6ad74528b54b30e50f681b6d
 
