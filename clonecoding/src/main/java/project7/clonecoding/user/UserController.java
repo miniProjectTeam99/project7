@@ -27,7 +27,7 @@ public class UserController {
     @ApiOperation(value = "로그인", notes = "로그인을 한다")
     @PostMapping("/user/login")
     public ResponseMsgDto login(@RequestBody UserRequestDto userRequestDto, HttpServletResponse response){
-        return userService.login(userRequestDto,response);
+            return userService.login(userRequestDto, response);
     }
 
     @ApiOperation(value = "유저 비번 변경")
