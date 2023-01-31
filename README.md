@@ -1,9 +1,12 @@
 # project7
+
 # 🖥️ 리얼월드
 다양한 종류의 게임이 모인 애플리케이션을 구현한 클론코딩 프로젝트입니다.
 
+
 ## 📆 개발기간
 2022년 1월 22일 ~ 2월 1일
+
 
 ## 👥 팀원
 `김승주` :  
@@ -15,6 +18,7 @@
 `안원석` : 댓글 기능 및 데이터 크롤링 담당
 
 `이성진` : 회원 관리 기능 담당
+
 
 ## ⚙ 기술 스택
 <img src="https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=java&logoColor=white"><img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"><img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
