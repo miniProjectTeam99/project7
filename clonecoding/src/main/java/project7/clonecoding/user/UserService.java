@@ -2,6 +2,7 @@ package project7.clonecoding.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -33,11 +34,11 @@ public class UserService {
         UserRoleEnum role = UserRoleEnum.USER;
 
         // 비밀번호 길이 체크 & 비밀번호와 비밀번호 체크 입력값 확인 후 같을 경우 암호화
-        if(password.length()<8){
+        if (password.length() < 8) {
             return new ResponseMsgDto("8글자 이상으로 만들어주세요.", HttpStatus.BAD_REQUEST.value());
         }
 
-        if(!matches(password,passwordCheck)){
+        if (!matches(password, passwordCheck)) {
             return new ResponseMsgDto("비밀번호가 서로 다릅니다.", HttpStatus.BAD_REQUEST.value());
         }
 
@@ -56,16 +57,16 @@ public class UserService {
         }
 
 
-       //제한 사항
-       String nameCheck = userRequestDto.getUserName();
-       String nameRegexp = "^[가-힣a-zA-Z0-9._-]{2,20}$";
-       if(!nameCheck.matches(nameRegexp)){
-           return new ResponseMsgDto("아이디는 2~20자 내외여야합니다.", HttpStatus.BAD_REQUEST.value());
-       }
+        //제한 사항
+        String nameCheck = userRequestDto.getUserName();
+        String nameRegexp = "^[가-힣a-zA-Z0-9._-]{2,20}$";
+        if (!nameCheck.matches(nameRegexp)) {
+            return new ResponseMsgDto("아이디는 2~20자 내외여야합니다.", HttpStatus.BAD_REQUEST.value());
+        }
 
-       String emailCheck = userRequestDto.getEmail();
-       String emailRegexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-        if(!emailCheck.matches(emailRegexp)){
+        String emailCheck = userRequestDto.getEmail();
+        String emailRegexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        if (!emailCheck.matches(emailRegexp)) {
             return new ResponseMsgDto("이메일 형식으로 등록해주세요.", HttpStatus.BAD_REQUEST.value());
         }
 
@@ -83,7 +84,7 @@ public class UserService {
 
         Users users = userRepository.findByEmail(userRequestDto.getEmail());
         if (users == null) {
-            return new ResponseMsgDto("등록되지 않은 이메일입니다.",HttpStatus.BAD_REQUEST.value());
+            return new ResponseMsgDto("등록되지 않은 이메일입니다.", HttpStatus.BAD_REQUEST.value());
         }
 
         if (!passwordEncoder.matches(password, users.getPassword())) {
@@ -98,11 +99,11 @@ public class UserService {
     }
 
     @Transactional
-    public Integer changeData(Long id, UserRequestDto userRequestDto,Users users) {
+    public Integer changeData(Long id, UserRequestDto userRequestDto, Users users) {
 
         String password = userRequestDto.getPassword();
 
-        if(password.length()<8)
+        if (password.length() < 8)
             return HttpStatus.BAD_REQUEST.value();
 
         String encodedPassword = passwordEncoder.encode(userRequestDto.getPassword());
@@ -117,14 +118,14 @@ public class UserService {
     }
 
     @Transactional
-    public Integer deleteUsersData(Long id, UserRequestDto userRequestDto,Users users){
+    public Integer deleteUsersData(Long id, UserRequestDto userRequestDto, Users users) {
         users = userRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
-        if(users.getUserName().equals(userRequestDto.getUserName())) {
+        if (users.getUserName().equals(userRequestDto.getUserName())) {
             userRepository.delete(users);
         }
-         return HttpStatus.OK.value();
+        return HttpStatus.OK.value();
     }
 
 }
