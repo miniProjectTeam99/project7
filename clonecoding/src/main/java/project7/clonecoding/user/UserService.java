@@ -11,13 +11,8 @@ import project7.clonecoding.user.dto.ResponseMsgDto;
 import project7.clonecoding.user.dto.UserRequestDto;
 import project7.clonecoding.user.entity.Users;
 import project7.clonecoding.user.entity.UserRoleEnum;
-import project7.clonecoding.user.entity.Users;
 
 import javax.servlet.http.HttpServletResponse;
-
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import static java.util.regex.Pattern.matches;
 
@@ -28,7 +23,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
-    public int i=0;
 
 
     public ResponseMsgDto signup(UserRequestDto userRequestDto, HttpServletResponse response) {
@@ -84,7 +78,7 @@ public class UserService {
         return new ResponseMsgDto("회원 가입 성공", HttpStatus.OK.value());
     }
 
-
+    @Transactional
     public ResponseMsgDto login(UserRequestDto userRequestDto, HttpServletResponse response) {
 
         String password = userRequestDto.getPassword();
@@ -94,16 +88,14 @@ public class UserService {
             return new ResponseMsgDto("등록되지 않은 이메일입니다.",HttpStatus.BAD_REQUEST.value());
         }
         if (!passwordEncoder.matches(password, users.getPassword())) {
-            i++; log.info(String.valueOf("시도횟수: "+i+" 번쨰..."));
-            users.failCount(users,1);
+        users.setFailCount(users.getFailCount()+1);
             return new ResponseMsgDto("비밀번호가 일치하지 않습니다.",HttpStatus.BAD_REQUEST.value());
         }
-
         // 토큰
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER,
                 jwtUtil.createToken(users.getUserName(), users.getRole()));
-        users.failClear();
-        return new ResponseMsgDto("로그인 성공", HttpStatus.OK.value());
+        int clear = users.getFailCount();users.setFailCount(0);
+        return new ResponseMsgDto("로그인 성공.마지막 로그인 전까지 로그인 실패횟수는 "+clear+" 회 입니다.", HttpStatus.OK.value());
     }
 
     @Transactional

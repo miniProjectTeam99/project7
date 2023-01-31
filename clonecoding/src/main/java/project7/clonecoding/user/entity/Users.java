@@ -35,25 +35,22 @@ public class Users extends Timestamped{
         return failCount;
     }
 
+    public void setFailCount(int failCount) {
+        this.failCount = failCount;
+        iDStop(failCount);
+    }
+
     @Column(nullable = false)
-    private int failCount=0;
+    private int failCount;
     public Users(UserRequestDto userRequestDto, String password, UserRoleEnum role){
         this.userName = userRequestDto.getUserName();
         this.email = userRequestDto.getEmail();
         this.password = password;
         this.role = UserRoleEnum.USER;
+        this.failCount = 0;
     }
-    public void failCount(Users users, int i){
-        this.failCount=users.failCount+i;
-        iDStop(users.failCount);
-    }
-
     public void changePassword(String password){
         this.password = password;
-    }
-
-    public void failClear() {
-        this.failCount=0;
     }
     public void iDStop(int i){
         if (failCount>4){
