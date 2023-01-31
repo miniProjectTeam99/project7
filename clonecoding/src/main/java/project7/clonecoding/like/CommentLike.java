@@ -14,9 +14,11 @@ public class CommentLike {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @ManyToOne
     @JoinColumn(name = "comment_id")
     private Comment comment;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
@@ -24,4 +26,5 @@ public class CommentLike {
         this.comment = comment;
         this.user = user;
     }
+
 }

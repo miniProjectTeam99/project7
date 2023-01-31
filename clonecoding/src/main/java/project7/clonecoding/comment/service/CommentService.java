@@ -33,8 +33,7 @@ public class CommentService {
             throw new IllegalArgumentException("해당 사용자가 없습니다.");
         }
         //댓글저장
-        Comment comment = new Comment(commentRequestDto,user);
-
+        Comment comment = new Comment(commentRequestDto,userFind);
         commentRepository.save(comment);
 
         return new ResponseDto("댓글 작성 완료");
@@ -43,15 +42,16 @@ public class CommentService {
     @Transactional
     public ResponseDto updateComment(Long commentId, CommentRequestDto requestDto, Users user) {
         // 사용자 확인하기
-        String username = user.getUserName();
+        Long userId = user.getId();
 
         //DB에서 댓글 찾아오기
         Comment comment = commentRepository.findById(commentId).orElseThrow(
                 () -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다.")
         );
-
+        System.out.println("comment.getUser().getId(): "+comment.getUser());
+        System.out.println(("userId: "+userId));
         //본인이 쓴 댓글인지 확인
-        if (!username.equals(comment.getUser().getUserName())) {
+        if (userId != comment.getUser().getId()) {
             throw new IllegalArgumentException("본인의 댓글만 수정 가능합니다");
         }
         comment.update(requestDto);
@@ -61,7 +61,7 @@ public class CommentService {
 
     @Transactional
     public ResponseDto deleteComment(Long commentId, CommentRequestDto requestDto, Users user) {
-        String username = user.getUserName();
+        Long userId = user.getId();
 
         //DB에서 댓글 찾아오기
         Comment comment = commentRepository.findById(commentId).orElseThrow(
@@ -69,8 +69,8 @@ public class CommentService {
         );
 
         //본인이 쓴 댓글인지 확인
-        if (!username.equals(comment.getUser().getUserName())) {
-            throw new IllegalArgumentException("본인의 댓글만 삭제 가능합니다");
+        if (userId != comment.getUser().getId()) {
+            throw new IllegalArgumentException("본인의 댓글만 수정 가능합니다");
         }
 
         //댓글 삭제

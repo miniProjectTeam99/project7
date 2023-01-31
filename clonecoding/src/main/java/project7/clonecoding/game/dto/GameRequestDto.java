@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 public class GameRequestDto {
     private String gameTitle;
     private String description;
-//    private String imgurl;
+    private String imgurl;
 }

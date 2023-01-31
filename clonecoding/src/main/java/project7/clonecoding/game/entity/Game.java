@@ -1,68 +1,64 @@
 package project7.clonecoding.game.entity;
 
+import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.extern.slf4j.Slf4j;
-import project7.clonecoding.game.dto.GameRequestDto;
-import project7.clonecoding.game.dto.StarRequestDto;
+import org.hibernate.annotations.TypeDef;
+
 import project7.clonecoding.timestamp.Timestamp;
-import project7.clonecoding.user.entity.Users;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-
 import javax.persistence.*;
+import java.util.List;
 
 @Slf4j
 @NoArgsConstructor
 @Getter
 @Entity
+@TypeDef(name = "json", typeClass = JsonBinaryType.class)
 public class Game extends Timestamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    //게임 이름
-    @Column(nullable = false)
+
+    @Column//게임 이름
     private String gameTitle;
-    //게임 설명
-    @Column
-    private String description;
-    //상품 이미지 url
-    @Column
-    private String imageUrl="";
-    //난이도
-    @Column
+
+    @Column//게임 이미지(리스트)
+    private String titleImg;
+
+    @Column//모바일 or not
+    private Boolean playType;
+
+    @Column//게임 가격(예시: 4,000원)
+    private int gamePrice;
+
+    @Column//게임 점수(후시 4.9점)
+    private String star;
+
+    @Column//게임 난이도
     private String difficulty;
-    //플레이타임
-    @Column
+
+    @Column//kit유무
+    private Boolean kit;
+
+    @Column//게임 시간
     private String playTime;
-    //별점
-    @Column
-    private float star=0;
-    //게시글을 작성한 유저
-    @Column
-    private Long userId;
 
-    public Game(GameRequestDto gameRequestDto) {
-//        if(gameRequestDto.getImageResponseDto().getUrl() == null) {
-//            this.imageUrl = "기본 이미지 주소";
-//        }else{
-//            this.imageUrl = gameRequestDto.getImageResponseDto().getUrl();
-//        }
-        this.gameTitle = gameRequestDto.getGameTitle();
-        this.description = gameRequestDto.getDescription();
-//        this.userId = user.getId();
-    }
+    //@Convert(converter = StringArrayConverter.class) // List<String> 때 사용
+    @Column(columnDefinition = "json")
+    private String gameImg;
 
-    public void update(GameRequestDto request) {
-        if(request.getGameTitle() != null) {
-            this.gameTitle = request.getGameTitle();
-        }
-        if(request.getDescription() != null) {
-            this.description = request.getDescription();
-        }
-    }
-    public void update(StarRequestDto request) {
+    @Column//게임 스토리
+    private String story;
 
-        this.star=request.getStar();
-        log.info(String.valueOf(getStar()));
-    }
+    @Column//게임 인원
+    private String people;
+
+    @Column//게임 상세
+    private String gameDesc;
+
+    @Column//게임 카테고리
+    private String category;
+
 }

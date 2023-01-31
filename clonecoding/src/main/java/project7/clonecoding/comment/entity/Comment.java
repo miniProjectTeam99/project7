@@ -23,7 +23,9 @@ public class Comment extends Timestamp {
 
     //별점
     @Column(nullable = false)
-    private Float star;
+    private Integer star;
+
+
 
     //스포일러 유무
     @Column(nullable = false)
@@ -47,6 +49,8 @@ public class Comment extends Timestamp {
     }
 
     public void update(CommentRequestDto requestDto){
-        content = requestDto.getComment();
+        this.content = requestDto.getComment();
+        this.star = requestDto.getStar();
+        this.isspoil = requestDto.getIsSpoil();
     }
 }
