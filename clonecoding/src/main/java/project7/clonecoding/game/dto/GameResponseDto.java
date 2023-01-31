@@ -72,6 +72,7 @@ public class GameResponseDto {
         gameImg = game.getGameImg();
         story = game.getStory();
         gameDesc = game.getGameDesc();
+        gameDescShort = game.getGameDescShort();
     }
 
     public GameResponseDto(Game game, Long Id, String Rct) {//게임 필요인원 및 평점 등등
@@ -107,6 +108,7 @@ public class GameResponseDto {
         story = game.getStory();
         people = game.getPeople();
         gameDesc = game.getGameDesc();
+        gameDescShort = game.getGameDescShort();
         category = game.getCategory();
     }
 

@@ -3,9 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/clonecoding.main.iml" filepath="$PROJECT_DIR$/.idea/modules/clonecoding.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.project7.clonecoding.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.project7.clonecoding.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/project7.iml" filepath="$PROJECT_DIR$/.idea/project7.iml" />
-
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/project7 - 복사본.clonecoding.main.iml" filepath="$PROJECT_DIR$/.idea/modules/project7 - 복사본.clonecoding.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/project7.clonecoding.main.iml" filepath="$PROJECT_DIR$/.idea/modules/project7.clonecoding.main.iml" />
     </modules>
   </component>
 </project>
