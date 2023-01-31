@@ -5,12 +5,12 @@
 ## 📆 개발기간
 2022년 1월 22일 ~ 2월 1일
 
-## 👥 팀원
+## 👥 팀원 : 업무
 `김승주` :  
 `최동환` : 
-`김재광` : 
-`안원석` : 
-`이성진` : 
+`김재광` : 게임 게시글 관련 담당
+`안원석` : 댓글 기능 및 데이터 크롤링 담당
+`이성진` : 회원 관리 기능 담당
 
 ## ⚙ 기술 스택
 <img src="https://img.shields.io/badge/JAVA-007396?style=for-the-badge&logo=java&logoColor=white"><img src="https://img.shields.io/badge/Spring-6DB33F?style=for-the-badge&logo=Spring&logoColor=white"><img src="https://img.shields.io/badge/mysql-4479A1?style=for-the-badge&logo=mysql&logoColor=white"><img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
@@ -21,13 +21,7 @@
 
 
 ## 🥾 구현 기능
-* 사용자의 포장 유무 확인
-* 사용자의 주문 접수 및 DB 저장
-* 사용자의 회원 유무 확인 후, 마일리지 적립
-* 당일 매출 조회
-* 당일 판매 건 수 조회
-* 신메뉴 추가 및 메뉴 삭제
-* 휴대폰 번호만 사용하여 회원 등록 기능 구현
+
 
 ## 📝 API
 ![7팀 리얼월드 API 명세]
