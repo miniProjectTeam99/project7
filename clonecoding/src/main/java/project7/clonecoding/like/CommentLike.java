@@ -14,11 +14,17 @@ public class CommentLike {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+<<<<<<< HEAD
 
     @ManyToOne
     @JoinColumn(name = "comment_id")
     private Comment comment;
 
+=======
+    @ManyToOne
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
+>>>>>>> a4c3139b7f674a35b5775046c809e1ada92638fd
     @ManyToOne
     @JoinColumn(name = "user_id")
     private Users user;
@@ -26,5 +32,8 @@ public class CommentLike {
         this.comment = comment;
         this.user = user;
     }
+<<<<<<< HEAD
     
+=======
+>>>>>>> a4c3139b7f674a35b5775046c809e1ada92638fd
 }

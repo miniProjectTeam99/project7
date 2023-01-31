@@ -18,9 +18,11 @@ public class CommentController {
     private final CommentService commentService;
 
     //댓글 작성
-    @PostMapping("/comments")
-    public ResponseDto createComments(@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return commentService.createComments(commentRequestDto, userDetails.getUser());
+    @PostMapping("/comments/{gameId}")
+    public ResponseDto createComments(@PathVariable Long gameId,
+                                      @RequestBody CommentRequestDto commentRequestDto,
+                                      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return commentService.createComments(gameId, commentRequestDto, userDetails.getUser());
     }
 
     //댓글 수정

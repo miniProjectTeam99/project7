@@ -3,7 +3,12 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/clonecoding.main.iml" filepath="$PROJECT_DIR$/.idea/modules/clonecoding.main.iml" />
+<<<<<<< HEAD
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/project7.clonecoding.main.iml" filepath="$PROJECT_DIR$/.idea/modules/project7.clonecoding.main.iml" />
+=======
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.project7.clonecoding.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.project7.clonecoding.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/project7.iml" filepath="$PROJECT_DIR$/.idea/project7.iml" />
+>>>>>>> a4c3139b7f674a35b5775046c809e1ada92638fd
     </modules>
   </component>
 </project>

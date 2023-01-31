@@ -1,5 +1,6 @@
 package project7.clonecoding.like;
 
+<<<<<<< HEAD
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,15 @@ import project7.clonecoding.comment.entity.Comment;
 import project7.clonecoding.comment.repository.CommentRepository;
 import project7.clonecoding.user.dto.ResponseMsgDto;
 import project7.clonecoding.user.entity.Users;
+=======
+import org.springframework.http.HttpStatus;
+import project7.clonecoding.comment.repository.CommentRepository;
+import project7.clonecoding.user.entity.Users;
+import project7.clonecoding.comment.entity.Comment;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import project7.clonecoding.user.dto.ResponseMsgDto;
+>>>>>>> a4c3139b7f674a35b5775046c809e1ada92638fd
 
 import javax.transaction.Transactional;
 

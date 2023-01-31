@@ -23,7 +23,11 @@ public class Comment extends Timestamp {
 
     //별점
     @Column(nullable = false)
+<<<<<<< HEAD
     private Integer star;
+=======
+    private Float star;
+>>>>>>> a4c3139b7f674a35b5775046c809e1ada92638fd
 
     //스포일러 유무
     @Column(nullable = false)

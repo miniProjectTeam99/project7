@@ -9,6 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 import project7.clonecoding.jwt.JwtUtil;
 import project7.clonecoding.user.dto.ResponseMsgDto;
 import project7.clonecoding.user.dto.UserRequestDto;
+<<<<<<< HEAD
+=======
+import project7.clonecoding.user.entity.Users;
+>>>>>>> a4c3139b7f674a35b5775046c809e1ada92638fd
 import project7.clonecoding.user.entity.UserRoleEnum;
 import project7.clonecoding.user.entity.Users;
 
@@ -26,6 +30,7 @@ public class UserService {
 
 
     public ResponseMsgDto signup(UserRequestDto userRequestDto, HttpServletResponse response) {
+<<<<<<< HEAD
 
         String password = userRequestDto.getPassword();
         String passwordCheck = userRequestDto.getPasswordCheck();
@@ -37,6 +42,19 @@ public class UserService {
             return new ResponseMsgDto("8글자 이상으로 만들어주세요.", HttpStatus.BAD_REQUEST.value());
         }
 
+=======
+
+        String password = userRequestDto.getPassword();
+        String passwordCheck = userRequestDto.getPasswordCheck();
+
+        UserRoleEnum role = UserRoleEnum.USER;
+
+        // 비밀번호 길이 체크 & 비밀번호와 비밀번호 체크 입력값 확인 후 같을 경우 암호화
+        if(password.length()<8){
+            return new ResponseMsgDto("8글자 이상으로 만들어주세요.", HttpStatus.BAD_REQUEST.value());
+        }
+
+>>>>>>> a4c3139b7f674a35b5775046c809e1ada92638fd
         if(!matches(password,passwordCheck)){
             return new ResponseMsgDto("비밀번호가 서로 다릅니다.", HttpStatus.BAD_REQUEST.value());
         }
