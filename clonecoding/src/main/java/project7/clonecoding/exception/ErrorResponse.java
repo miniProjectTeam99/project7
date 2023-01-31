@@ -3,24 +3,28 @@ package project7.clonecoding.exception;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @NoArgsConstructor
 public class ErrorResponse {
 
-    private String message;
-    private int status;
-    private List<FieldError> errors;
-    private String code;
+    private ErrorCode errorCode;
+    private String errorMessage;
 
-
-    @Getter
-    @NoArgsConstructor
-    public static class FieldError {
-        private String field;
-        private String value;
-        private String reason;
+    private ErrorResponse(ErrorCode errorCode) {
+        this.errorCode = errorCode;
 
     }
+
+    public static ErrorResponse of(ErrorCode errorCode) {
+        return new ErrorResponse(errorCode);
+    }
+
+    public ErrorCode getErrorCode() {
+        return errorCode;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
 }
