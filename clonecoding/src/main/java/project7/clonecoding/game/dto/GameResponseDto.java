@@ -19,7 +19,7 @@ public class GameResponseDto {
     private String difficulty;
     private Boolean kit;
     private String playTime;
-    private String gameImg;
+    private List<String> gameImg;
     private String story;
     private String people;
     private String gameDesc;

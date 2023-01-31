@@ -11,6 +11,8 @@ import project7.clonecoding.comment.service.CommentService;
 import project7.clonecoding.game.dto.ResponseDto;
 import project7.clonecoding.security.UserDetailsImpl;
 
+import java.sql.SQLException;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -22,7 +24,7 @@ public class CommentController {
     @PostMapping("/comments/{gameId}")
     public ResponseDto createComments(@PathVariable Long gameId,
                                       @RequestBody CommentRequestDto commentRequestDto,
-                                      @AuthenticationPrincipal UserDetailsImpl userDetails) {
+                                      @AuthenticationPrincipal UserDetailsImpl userDetails) throws SQLException {
         return commentService.createComments(gameId, commentRequestDto, userDetails.getUser());
     }
 

@@ -4,11 +4,13 @@ import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.TypeDef;
 
+import project7.clonecoding.comment.entity.Comment;
 import project7.clonecoding.timestamp.Timestamp;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
@@ -45,9 +47,9 @@ public class Game extends Timestamp {
     @Column//게임 시간
     private String playTime;
 
-    //@Convert(converter = StringArrayConverter.class) // List<String> 때 사용
+    @Convert(converter = StringArrayConverter.class) // List<String> 때 사용
     @Column(columnDefinition = "json")
-    private String gameImg;
+    private List<String> gameImg;
 
     @Column//게임 스토리
     private String story;
@@ -64,4 +66,6 @@ public class Game extends Timestamp {
     @Column//게임 카테고리
     private String category;
 
+    @OneToMany(mappedBy = "game", cascade = CascadeType.REMOVE)
+    private List<Comment> comments = new ArrayList<>();
 }
