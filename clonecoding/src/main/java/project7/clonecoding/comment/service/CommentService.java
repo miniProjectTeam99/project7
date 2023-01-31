@@ -34,7 +34,6 @@ public class CommentService {
         }
         //댓글저장
         Comment comment = new Comment(commentRequestDto,userFind);
-
         commentRepository.save(comment);
 
         return new ResponseDto("댓글 작성 완료");
