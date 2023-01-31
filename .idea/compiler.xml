@@ -26,5 +26,6 @@
         <module name="project7 - 복사본.clonecoding.main" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="11" />
   </component>
 </project>

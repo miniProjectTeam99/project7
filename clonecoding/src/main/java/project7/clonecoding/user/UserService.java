@@ -15,6 +15,10 @@ import project7.clonecoding.user.entity.Users;
 
 import javax.servlet.http.HttpServletResponse;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import static java.util.regex.Pattern.matches;
 
 @Service
@@ -24,6 +28,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
+    public int i=0;
 
 
     public ResponseMsgDto signup(UserRequestDto userRequestDto, HttpServletResponse response) {
@@ -57,15 +62,15 @@ public class UserService {
         }
 
 
-       //제한 사항
-       String nameCheck = userRequestDto.getUserName();
-       String nameRegexp = "^[가-힣a-zA-Z0-9._-]{2,20}$";
-       if(!nameCheck.matches(nameRegexp)){
-           return new ResponseMsgDto("아이디는 2~20자 내외여야합니다.", HttpStatus.BAD_REQUEST.value());
-       }
+        //제한 사항
+        String nameCheck = userRequestDto.getUserName();
+        String nameRegexp = "^[가-힣a-zA-Z0-9._-]{2,20}$";
+        if(!nameCheck.matches(nameRegexp)){
+            return new ResponseMsgDto("아이디는 2~20자 내외여야합니다.", HttpStatus.BAD_REQUEST.value());
+        }
 
-       String emailCheck = userRequestDto.getEmail();
-       String emailRegexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+        String emailCheck = userRequestDto.getEmail();
+        String emailRegexp = "^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
         if(!emailCheck.matches(emailRegexp)){
             return new ResponseMsgDto("이메일 형식으로 등록해주세요.", HttpStatus.BAD_REQUEST.value());
         }
@@ -79,22 +84,25 @@ public class UserService {
         return new ResponseMsgDto("회원 가입 성공", HttpStatus.OK.value());
     }
 
+
     public ResponseMsgDto login(UserRequestDto userRequestDto, HttpServletResponse response) {
+
         String password = userRequestDto.getPassword();
 
         Users users = userRepository.findByEmail(userRequestDto.getEmail());
         if (users == null) {
             return new ResponseMsgDto("등록되지 않은 이메일입니다.",HttpStatus.BAD_REQUEST.value());
         }
-
         if (!passwordEncoder.matches(password, users.getPassword())) {
-            return new ResponseMsgDto("비밀번호가 일치하지 않습니다.", HttpStatus.BAD_REQUEST.value());
+            i++; log.info(String.valueOf("시도횟수: "+i+" 번쨰..."));
+            users.failCount(users,1);
+            return new ResponseMsgDto("비밀번호가 일치하지 않습니다.",HttpStatus.BAD_REQUEST.value());
         }
 
         // 토큰
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER,
                 jwtUtil.createToken(users.getUserName(), users.getRole()));
-
+        users.failClear();
         return new ResponseMsgDto("로그인 성공", HttpStatus.OK.value());
     }
 
@@ -118,13 +126,13 @@ public class UserService {
     }
 
     @Transactional
-    public Integer deleteUsersData(Long id, UserRequestDto userRequestDto, Users users){
+    public Integer deleteUsersData(Long id, UserRequestDto userRequestDto,Users users){
         users = userRepository.findById(id).orElseThrow(
                 () -> new IllegalArgumentException("아이디가 존재하지 않습니다.")
         );
-//        if(users.getUserName().equals(userRequestDto.getUserName())) {
-        userRepository.delete(users);
-//        }
+        if(users.getUserName().equals(userRequestDto.getUserName())) {
+            userRepository.delete(users);
+        }
         return HttpStatus.OK.value();
     }
 
