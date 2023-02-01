@@ -1,2 +1,2 @@
 # project7
-![스크린샷(12)](https://user-images.githubusercontent.com/95980876/214786276-3ebaf563-32a6-4161-ab78-4b6513ade9a2.png)
+![스크린샷(12)](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6ad84288-08eb-41e3-8343-8f0e81b59572/111.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230201%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230201T082509Z&X-Amz-Expires=86400&X-Amz-Signature=a45f21a914c269b73edb4a0dbb8a0eb2e629b596928ef32cf1a86809ef295555&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22111.png%22&x-id=GetObject)
