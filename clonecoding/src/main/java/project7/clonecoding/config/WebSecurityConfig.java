@@ -62,6 +62,7 @@ public class WebSecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.addAllowedOrigin("http://localhost:3000"); //프론트가 3000번 포트를 사용함
+        configuration.addAllowedOrigin("http://hanghea99cloncoding7.s3-website.ap-northeast-2.amazonaws.com");
         configuration.setAllowCredentials(true);
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
