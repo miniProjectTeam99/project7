@@ -29,7 +29,8 @@
 
 
 ## 🥾 구현 기능
-*ㅇㅇㅇㅇ
+
+
 
 ## 📝 API, ERD
 notion) https://www.notion.so/spartaclonecoding7/7-532c49de6ad74528b54b30e50f681b6d
