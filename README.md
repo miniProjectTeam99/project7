@@ -9,9 +9,9 @@
 
 
 ## 👥 팀원
-`김승주` :  
+`김승주` : 탭과 댓글 담당
 
-`최동환` : 
+`최동환` : 슬라이더, css, 게임정보 연결 담당
 
 `김재광` : 게임 게시글 관련 담당
 
@@ -33,12 +33,6 @@
 
 ## 📝 API, ERD
 notion) https://www.notion.so/spartaclonecoding7/7-532c49de6ad74528b54b30e50f681b6d
-
-
-## 🔭 overView
-![image]
-![image (1)]
-![image (2)]
 
 
 
