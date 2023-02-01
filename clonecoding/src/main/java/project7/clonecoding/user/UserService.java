@@ -73,7 +73,7 @@ public class UserService {
         Users signRequest = new Users(userRequestDto, encodingPassword, role);
         userRepository.save(signRequest);
 
-        response.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+        response.setHeader("Access-Control-Allow-Origin", "http://hanghea99cloncoding7.s3-website.ap-northeast-2.amazonaws.com");
 
         return new ResponseMsgDto("회원 가입 성공", HttpStatus.OK.value());
     }
