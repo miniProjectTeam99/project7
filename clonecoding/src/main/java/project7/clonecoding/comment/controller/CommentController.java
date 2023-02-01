@@ -12,6 +12,7 @@ import project7.clonecoding.game.dto.ResponseDto;
 import project7.clonecoding.security.UserDetailsImpl;
 
 import java.sql.SQLException;
+import java.util.List;
 
 
 @RestController
@@ -36,13 +37,13 @@ public class CommentController {
 
     //댓글 삭제
     @DeleteMapping("/comments/{commentId}")
-    public ResponseDto deleteComment(@PathVariable Long commentId, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return commentService.deleteComment(commentId, requestDto, userDetails.getUser());
+    public ResponseDto deleteComment(@PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+        return commentService.deleteComment(commentId, userDetails.getUser());
     }
 
     //댓글 받기
     @GetMapping("/comments/{gameId}")
-    public CommentResponseDto getComment(@PathVariable Long gameId) {
+    public List<CommentResponseDto> getComment(@PathVariable Long gameId) {
         return commentService.getComment(gameId);
     }
 

@@ -14,15 +14,25 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Comment {
+public class Comment extends Timestamp{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     //댓글내용
-    @Column(columnDefinition = "json")
-    @Convert(converter = StringArrayConverter.class)
-    private List<String> content;
+//    @Column(columnDefinition = "json")
+//    @Convert(converter = StringArrayConverter.class)
+    @Column(nullable = false)
+    private String comment;
+
+    @Column
+    private Boolean isSpoil;
+
+    @Column
+    private String userName;
+
+    @Column
+    private Integer stars;
 
     //유저와 다대일 매핑
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,12 +45,15 @@ public class Comment {
     private Game game;
 
     public Comment (CommentRequestDto commentDto, Users user, Game game) {
-        this.content = commentDto.getComment();
+        this.comment = commentDto.getComment();
+        this.isSpoil = commentDto.getIsSpoil();
+        this.stars = commentDto.getStars();
+        this.userName = user.getUserName();
         this.user = user;
         this.game = game;
     }
 
     public void update(CommentRequestDto requestDto){
-        this.content = requestDto.getComment();
+        this.comment = requestDto.getComment();
     }
 }

@@ -9,5 +9,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class CommentRequestDto {
-    private List<String> comment;
+    private String comment;
+    private Integer stars;
+    private Boolean isSpoil;
 }

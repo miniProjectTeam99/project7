@@ -14,6 +14,7 @@ import project7.clonecoding.user.UserRepository;
 import project7.clonecoding.user.entity.Users;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -28,11 +29,6 @@ public class CommentService {
 
     @Transactional
     public ResponseDto createComments(Long gameId, CommentRequestDto commentRequestDto, Users user) throws SQLException {
-        String url = "jdbc:mysql://database.cp7vsvj41kr8.ap-northeast-2.rds.amazonaws.com:3306/data";
-        String userName = "admin";
-        String password = "dks153153";
-        Connection con = DriverManager.getConnection(url, userName, password);
-
         // 사용자 확인하기
         String username = user.getUserName();
         Users userFind = userRepository.findByUserName(username);
@@ -44,20 +40,10 @@ public class CommentService {
             throw new IllegalArgumentException("해당 사용자가 없습니다.");
         }
 
-        PreparedStatement pstmt = con.prepareStatement("SELECT content FROM comment WHERE id = (?)");
-        pstmt.setInt(1, gameId.intValue());
-        ResultSet rs = pstmt.executeQuery();
-        rs.next();
+        //댓글저장
+        Comment comment = new Comment(commentRequestDto,userFind,game);
 
-        String comment = commentRequestDto.getComment().toString();
-        String s[] = comment.split("[\\[,\\]]");
-        String str= "\"dates\":" + "\"" +s[1].strip() + "\"" + "," + "\"user\":" + "\"" + s[2].strip() + "\"" + "," + "\"stars\":" + "\"" + s[3].strip() + "\"" + "," +  "\"comment\":" + "\"" + s[4].strip() + "\"" + "," +  "\"isSpoil\":" + s[5].strip() + "},";
-        String strs = "[{" + str + rs.getString(1).substring(1);
-
-        PreparedStatement pstmt1 = con.prepareStatement("UPDATE comment SET content = (?) WHERE id = (?)");
-        pstmt1.setString(1, strs);
-        pstmt1.setInt(2,gameId.intValue());
-        pstmt1.execute();
+        commentRepository.save(comment);
 
         return new ResponseDto("댓글 작성 완료");
     }
@@ -83,7 +69,7 @@ public class CommentService {
     }
 
     @Transactional
-    public ResponseDto deleteComment(Long commentId, CommentRequestDto requestDto, Users user) {
+    public ResponseDto deleteComment(Long commentId, Users user) {
         Long userId = user.getId();
 
         //DB에서 댓글 찾아오기
@@ -102,13 +88,18 @@ public class CommentService {
     }
 
     //게임 아이디에 맞는 댓글 전송
-    public CommentResponseDto getComment(Long gameId) {
-
-        //DB에서 댓글 찾아오기
-        Comment comment = commentRepository.findById(gameId).orElseThrow(
-                () -> new IllegalArgumentException("해당 게임의 댓글은 없습니다.")
+    public List<CommentResponseDto> getComment(Long gameId) {
+        List<CommentResponseDto> list = new ArrayList<>();
+        Game game = gameRepository.findById(gameId).orElseThrow(
+                () -> new IllegalArgumentException("해당 게임이 존재하지 않습니다.")
         );
+        //DB에서 댓글 찾아오기
+        List<Comment> comments = commentRepository.findAllByGame(game);
 
-        return new CommentResponseDto(comment);
+        for(Comment comment : comments){
+            list.add(new CommentResponseDto(comment));
+        }
+
+        return list;
     }
 }

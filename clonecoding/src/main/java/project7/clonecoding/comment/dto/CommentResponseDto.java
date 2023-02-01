@@ -6,14 +6,28 @@ import project7.clonecoding.comment.entity.Comment;
 import project7.clonecoding.game.entity.Game;
 
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @NoArgsConstructor
 public class CommentResponseDto {
-    private List<String> comment;
+//    private Optional<Comment> comment;
+//    private Boolean isSoil;
+    private Long id;
+    private String comment;
+    private Boolean isSpoil;
+    private String user;
+    private Integer stars;
+    private String dates;
+
 
     public CommentResponseDto(Comment comment) {//평점순
-        this.comment = comment.getContent();
+        this.id = comment.getId();
+        this.comment = comment.getComment();
+        this.isSpoil = comment.getIsSpoil();
+        this.user = comment.getUserName();
+        this.stars = comment.getStars();
+        this.dates = comment.getCreatedAt();
     }
 
 }
