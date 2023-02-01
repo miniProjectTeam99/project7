@@ -6,6 +6,7 @@ import project7.clonecoding.comment.entity.Comment;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
+import project7.clonecoding.timestamp.Timestamp;
 import project7.clonecoding.user.dto.UserRequestDto;
 
 import javax.persistence.*;
@@ -17,7 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Users extends Timestamped{
+public class Users extends Timestamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -45,7 +46,6 @@ public class Users extends Timestamped{
 
     public void setFailCount(int failCount) {
         this.failCount = failCount;
-        iDStop(failCount);
     }
 
     @Column(nullable = false)
@@ -60,12 +60,6 @@ public class Users extends Timestamped{
     }
     public void changePassword(String password){
         this.password = password;
-    }
-    public void iDStop(int i){
-        if (failCount>4){
-            log.info("횟수: "+i+" 입니다. 본인이 맞으신가요?");}else{
-            log.info("횟수: "+ i);
-        }
     }
 }
 

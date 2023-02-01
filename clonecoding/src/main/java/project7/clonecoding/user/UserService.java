@@ -89,7 +89,7 @@ public class UserService {
         }
         if (!passwordEncoder.matches(password, users.getPassword())) { // 비밀번호 입력 오류 시
         users.setFailCount(users.getFailCount()+1); //로그인 실패 시 실패 횟수 1 늘림
-            return new ResponseMsgDto("비밀번호가 일치하지 않습니다."+"",HttpStatus.BAD_REQUEST.value());
+        return new ResponseMsgDto("비밀번호가 일치하지 않습니다. "+iDStop(users.getFailCount()),HttpStatus.BAD_REQUEST.value());
         }
         // 토큰 헤더에 올리고 응답해주기
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER,
@@ -128,5 +128,10 @@ public class UserService {
         }
         return HttpStatus.OK.value();
     }
-
+    public String iDStop(int i){
+        if (i>4){
+            return ("현재 실패 횟수는 "+i+" 입니다. 본인이 맞으신가요?");}else{
+            return ("현재 실패 횟수는 "+ i+" 입니다.");
+        }
+    }
 }

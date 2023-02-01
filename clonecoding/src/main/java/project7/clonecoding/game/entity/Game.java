@@ -18,7 +18,7 @@ import java.util.List;
 @Getter
 @Entity
 @TypeDef(name = "json", typeClass = JsonBinaryType.class)
-public class Game extends Timestamp {
+public class Game{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
