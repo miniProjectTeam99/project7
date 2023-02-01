@@ -83,18 +83,19 @@ public class UserService {
 
         String password = userRequestDto.getPassword();
 
-        Users users = userRepository.findByEmail(userRequestDto.getEmail());
+        Users users = userRepository.findByEmail(userRequestDto.getEmail());//이메일 오류 시
         if (users == null) {
-            return new ResponseMsgDto("등록되지 않은 이메일입니다.",HttpStatus.BAD_REQUEST.value());
+            throw new IllegalArgumentException("등록되지 않은 이메일입니다.");
         }
-        if (!passwordEncoder.matches(password, users.getPassword())) {
-        users.setFailCount(users.getFailCount()+1);
-            return new ResponseMsgDto("비밀번호가 일치하지 않습니다.",HttpStatus.BAD_REQUEST.value());
+        if (!passwordEncoder.matches(password, users.getPassword())) { // 비밀번호 입력 오류 시
+        users.setFailCount(users.getFailCount()+1); //로그인 실패 시 실패 횟수 1 늘림
+            return new ResponseMsgDto("비밀번호가 일치하지 않습니다."+"",HttpStatus.BAD_REQUEST.value());
         }
-        // 토큰
+        // 토큰 헤더에 올리고 응답해주기
         response.addHeader(JwtUtil.AUTHORIZATION_HEADER,
                 jwtUtil.createToken(users.getUserName(), users.getRole()));
-        int clear = users.getFailCount();users.setFailCount(0);
+
+        int clear = users.getFailCount();users.setFailCount(0); //로그인 성공 시 유저가 가지고 있던 로그인 실패횟수를 리셋시킴
         return new ResponseMsgDto("로그인 성공.마지막 로그인 전까지 로그인 실패횟수는 "+clear+" 회 입니다.",HttpStatus.OK.value());
     }
 
