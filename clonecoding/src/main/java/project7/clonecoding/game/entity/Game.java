@@ -4,19 +4,17 @@ import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.annotations.TypeDef;
 
-import project7.clonecoding.timestamp.Timestamp;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Slf4j
 @NoArgsConstructor
 @Getter
 @Entity
 @TypeDef(name = "json", typeClass = JsonBinaryType.class)
-public class Game extends Timestamp {
+public class Game {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -57,6 +55,9 @@ public class Game extends Timestamp {
 
     @Column//게임 상세
     private String gameDesc;
+
+    @Column//게임 핵심 설명
+    private String gameDescShort;
 
     @Column//게임 카테고리
     private String category;

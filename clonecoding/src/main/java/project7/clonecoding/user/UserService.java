@@ -126,6 +126,7 @@ public class UserService {
         if (users.getUserName().equals(userRequestDto.getUserName())) {
             userRepository.delete(users);
         }
+
         return HttpStatus.OK.value();
     }
 

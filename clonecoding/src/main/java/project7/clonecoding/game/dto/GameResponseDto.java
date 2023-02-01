@@ -23,6 +23,7 @@ public class GameResponseDto {
     private String story;
     private String people;
     private String gameDesc;
+    private String gameDescShort;
     private String category;
     private List<Game> games;
 
@@ -48,6 +49,7 @@ public class GameResponseDto {
             gamePrice = String.valueOf(game.getGamePrice());
         }
         gameDesc = game.getGameDesc();
+        gameDescShort = game.getGameDescShort();
     }
 
     public GameResponseDto(Game game, String Rct) {//최신순
@@ -60,6 +62,7 @@ public class GameResponseDto {
             gamePrice = String.valueOf(game.getGamePrice());
         }
         gameDesc = game.getGameDesc();
+        gameDescShort = game.getGameDescShort();
         category = game.getCategory();
     }
 
@@ -69,6 +72,7 @@ public class GameResponseDto {
         gameImg = game.getGameImg();
         story = game.getStory();
         gameDesc = game.getGameDesc();
+        gameDescShort = game.getGameDescShort();
     }
 
     public GameResponseDto(Game game, Long Id, String Rct) {//게임 필요인원 및 평점 등등
@@ -104,6 +108,7 @@ public class GameResponseDto {
         story = game.getStory();
         people = game.getPeople();
         gameDesc = game.getGameDesc();
+        gameDescShort = game.getGameDescShort();
         category = game.getCategory();
     }
 

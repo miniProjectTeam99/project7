@@ -2,6 +2,7 @@ package project7.clonecoding.user.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import project7.clonecoding.util.Timestamp;
 import project7.clonecoding.user.dto.UserRequestDto;
 
 import javax.persistence.*;
@@ -9,7 +10,7 @@ import javax.persistence.*;
 @Entity
 @Getter
 @NoArgsConstructor
-public class Users extends Timestamped{
+public class Users extends Timestamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

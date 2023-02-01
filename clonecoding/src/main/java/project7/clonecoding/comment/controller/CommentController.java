@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import project7.clonecoding.comment.dto.CommentRequestDto;
+import project7.clonecoding.comment.dto.CommentResponseDto;
 import project7.clonecoding.comment.service.CommentService;
 import project7.clonecoding.game.dto.ResponseDto;
 import project7.clonecoding.security.UserDetailsImpl;
@@ -33,6 +34,12 @@ public class CommentController {
     @DeleteMapping("/comments/{commentId}")
     public ResponseDto deleteComment(@PathVariable Long commentId, @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         return commentService.deleteComment(commentId, requestDto, userDetails.getUser());
+    }
+
+    //댓글 받기
+    @GetMapping("/comments/{gameId}")
+    public CommentResponseDto getComment(@PathVariable Long gameId) {
+        return commentService.getComment(gameId);
     }
 
 }
