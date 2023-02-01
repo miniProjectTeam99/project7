@@ -1,4 +1,4 @@
-package project7.clonecoding.timestamp;
+package project7.clonecoding.util;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
