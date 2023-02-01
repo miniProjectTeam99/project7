@@ -39,3 +39,8 @@
 
 ## 📝 API, ERD
 notion) https://www.notion.so/spartaclonecoding7/7-532c49de6ad74528b54b30e50f681b6d
+
+ERD
+
+
+![스크린샷(12)](https://s3.us-west-2.amazonaws.com/secure.notion-static.com/6ad84288-08eb-41e3-8343-8f0e81b59572/111.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAT73L2G45EIPT3X45%2F20230201%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Date=20230201T082509Z&X-Amz-Expires=86400&X-Amz-Signature=a45f21a914c269b73edb4a0dbb8a0eb2e629b596928ef32cf1a86809ef295555&X-Amz-SignedHeaders=host&response-content-disposition=filename%3D%22111.png%22&x-id=GetObject)
