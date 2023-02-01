@@ -57,8 +57,6 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId).orElseThrow(
                 () -> new IllegalArgumentException("해당 댓글이 존재하지 않습니다.")
         );
-        System.out.println("comment.getUser().getId(): "+comment.getUser());
-        System.out.println(("userId: "+userId));
         //본인이 쓴 댓글인지 확인
         if (userId != comment.getUser().getId()) {
             throw new IllegalArgumentException("본인의 댓글만 수정 가능합니다");
